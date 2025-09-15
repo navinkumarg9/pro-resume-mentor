@@ -115,24 +115,24 @@
   }
   
   .btn-professional {
-    @apply bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow-md hover:bg-primary/90 transition-smooth;
+    @apply bg-primary text-primary-foreground font-medium px-6 py-3 rounded-lg shadow-md hover:bg-primary/90 transition-all duration-300;
   }
   
   .btn-outline-pro {
-    @apply border-2 border-primary text-primary bg-transparent font-medium px-6 py-3 rounded-lg hover:bg-primary hover:text-primary-foreground transition-smooth;
+    @apply border-2 border-primary text-primary bg-transparent font-medium px-6 py-3 rounded-lg hover:bg-primary hover:text-primary-foreground transition-all duration-300;
   }
   
   .btn-success {
-    @apply bg-gradient-to-r from-success to-success/80 text-success-foreground font-medium px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-smooth;
+    @apply bg-gradient-to-r from-success to-success/80 text-success-foreground font-medium px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300;
   }
   
   /* Professional Cards */
   .card-pro {
-    @apply bg-card border border-border rounded-xl p-6 shadow-md hover:shadow-lg transition-smooth;
+    @apply bg-card border border-border rounded-xl p-6 shadow-md hover:shadow-lg transition-all duration-300;
   }
   
   .card-gradient {
-    @apply bg-gradient-to-br from-card to-muted border border-border rounded-xl p-6 shadow-lg hover:shadow-xl transition-smooth;
+    @apply bg-gradient-to-br from-card to-muted border border-border rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300;
   }
   
   .card-feature {
@@ -200,15 +200,5 @@
   to {
     opacity: 1;
     transform: scale(1);
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  body {
-    @apply bg-background text-foreground;
   }
 }
