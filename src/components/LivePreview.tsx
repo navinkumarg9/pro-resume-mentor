@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { useResume } from './ResumeStore';
 import { resumeTemplates } from './ResumeTemplates';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 const LivePreview: React.FC = () => {
   const { state } = useResume();
@@ -32,11 +34,38 @@ const LivePreview: React.FC = () => {
     setZoom(prev => Math.max(prev - 25, 50));
   };
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     if (previewRef.current) {
-      // This would normally use a library like html2pdf or react-pdf
-      // For now, we'll show a placeholder
-      alert('PDF download functionality would be implemented here using libraries like html2pdf.js or react-pdf');
+      try {
+        // Create canvas from HTML element
+        const canvas = await html2canvas(previewRef.current, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: '#ffffff',
+          width: 794, // A4 width in pixels at 96 DPI
+          height: 1123, // A4 height in pixels at 96 DPI
+        });
+
+        // Create PDF
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4',
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+        const imgWidth = 210; // A4 width in mm
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+        
+        // Download the PDF
+        const fileName = `${state.resumeData.personalInfo.fullName || 'Resume'}.pdf`;
+        pdf.save(fileName);
+      } catch (error) {
+        console.error('Error generating PDF:', error);
+        alert('Error generating PDF. Please try again.');
+      }
     }
   };
 

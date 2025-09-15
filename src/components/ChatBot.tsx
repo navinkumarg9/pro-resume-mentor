@@ -52,6 +52,165 @@ const ChatBot: React.FC = () => {
     const lowerMessage = userMessage.toLowerCase();
     const analysis = getResumeAnalysis();
     
+    // Job role requirements
+    if (lowerMessage.includes('software developer') || lowerMessage.includes('developer') || lowerMessage.includes('programmer')) {
+      return `**Software Developer Requirements:**
+
+**Technical Skills:**
+• Programming Languages: JavaScript, Python, Java, C#, or C++
+• Frontend: HTML, CSS, React, Vue.js, or Angular
+• Backend: Node.js, Django, Spring Boot, or .NET
+• Databases: SQL (MySQL, PostgreSQL) and NoSQL (MongoDB)
+• Version Control: Git and GitHub/GitLab
+• Cloud Platforms: AWS, Azure, or Google Cloud
+
+**Experience & Education:**
+• Bachelor's degree in Computer Science or related field (or equivalent experience)
+• 2-5 years of software development experience
+• Portfolio of projects demonstrating coding skills
+
+**Soft Skills:**
+• Problem-solving and analytical thinking
+• Team collaboration and communication
+• Attention to detail and debugging skills
+• Continuous learning mindset
+
+**Resume Tips for Developers:**
+• Include GitHub profile and live project links
+• Quantify achievements (e.g., "Improved performance by 40%")
+• List specific technologies and frameworks used
+• Show progression from junior to senior responsibilities`;
+    }
+
+    if (lowerMessage.includes('data scientist') || lowerMessage.includes('data analyst') || lowerMessage.includes('machine learning')) {
+      return `**Data Scientist Requirements:**
+
+**Technical Skills:**
+• Programming: Python, R, SQL, Scala
+• Machine Learning: Scikit-learn, TensorFlow, PyTorch
+• Data Analysis: Pandas, NumPy, Matplotlib, Seaborn
+• Statistics: Hypothesis testing, regression analysis
+• Big Data: Spark, Hadoop, Kafka
+• Visualization: Tableau, Power BI, D3.js
+
+**Education:**
+• Master's/PhD in Statistics, Mathematics, Computer Science, or related field
+• Strong foundation in statistics and mathematics
+• Understanding of machine learning algorithms
+
+**Experience:**
+• 3+ years in data analysis or related field
+• Experience with large datasets
+• Business acumen and domain expertise
+
+**Resume Tips:**
+• Highlight specific projects with measurable outcomes
+• Include publications or research if applicable
+• Show proficiency with statistical methods
+• Demonstrate business impact of your analyses`;
+    }
+
+    if (lowerMessage.includes('ui designer') || lowerMessage.includes('ux designer') || lowerMessage.includes('product designer')) {
+      return `**UI/UX Designer Requirements:**
+
+**Design Skills:**
+• Design Tools: Figma, Sketch, Adobe Creative Suite
+• Prototyping: InVision, Principle, Framer
+• User Research: User interviews, usability testing
+• Information Architecture: User flows, wireframing
+• Visual Design: Typography, color theory, layout
+
+**Technical Knowledge:**
+• HTML/CSS basics for design handoff
+• Understanding of responsive design principles
+• Accessibility standards (WCAG)
+• Design systems and component libraries
+
+**Experience:**
+• 2-4 years of design experience
+• Portfolio showcasing design process
+• Experience with user-centered design methodology
+
+**Soft Skills:**
+• Empathy for user needs
+• Communication and presentation skills
+• Collaboration with developers and stakeholders
+• Creative problem-solving
+
+**Resume Tips:**
+• Lead with portfolio link
+• Show design process, not just final designs
+• Include user research and testing results
+• Quantify design improvements (conversion rates, user satisfaction)`;
+    }
+
+    if (lowerMessage.includes('marketing') || lowerMessage.includes('digital marketing') || lowerMessage.includes('content marketing')) {
+      return `**Marketing Specialist Requirements:**
+
+**Digital Marketing Skills:**
+• SEO/SEM: Google Analytics, Google Ads, keyword research
+• Social Media: Facebook Ads, LinkedIn, Instagram, Twitter
+• Email Marketing: Mailchimp, Constant Contact, automation
+• Content Creation: Copywriting, video editing, graphic design
+• Analytics: Google Analytics, social media insights, A/B testing
+
+**Traditional Marketing:**
+• Market research and competitive analysis
+• Brand management and positioning
+• Campaign planning and execution
+• Budget management and ROI analysis
+
+**Tools & Platforms:**
+• CRM systems (HubSpot, Salesforce)
+• Marketing automation tools
+• Design software (Canva, Adobe Creative Suite)
+• Project management tools
+
+**Experience:**
+• Bachelor's in Marketing, Communications, or related field
+• 2-5 years of marketing experience
+• Proven track record of successful campaigns
+
+**Resume Tips:**
+• Quantify results (CTR, conversion rates, ROI)
+• Show multi-channel campaign experience
+• Include specific tools and platforms used
+• Highlight creative and analytical skills`;
+    }
+
+    if (lowerMessage.includes('project manager') || lowerMessage.includes('product manager') || lowerMessage.includes('scrum master')) {
+      return `**Project/Product Manager Requirements:**
+
+**Management Skills:**
+• Project Planning: Gantt charts, resource allocation
+• Agile/Scrum: Sprint planning, backlog management
+• Risk Management: Risk assessment and mitigation
+• Stakeholder Management: Communication and alignment
+• Budget Management: Cost control and forecasting
+
+**Tools & Methodologies:**
+• Project Management: Jira, Asana, Monday.com
+• Collaboration: Slack, Microsoft Teams, Confluence
+• Documentation: Requirements gathering, user stories
+• Analytics: Data-driven decision making
+
+**Certifications:**
+• PMP (Project Management Professional)
+• Certified ScrumMaster (CSM)
+• Product Management certifications
+
+**Experience:**
+• Bachelor's degree in Business, Engineering, or related field
+• 3-7 years of project/product management experience
+• Experience leading cross-functional teams
+
+**Resume Tips:**
+• Highlight successful project deliveries
+• Show budget and timeline management
+• Include team size and scope of projects managed
+• Demonstrate stakeholder management skills`;
+    }
+
     // Resume analysis request
     if (lowerMessage.includes('analyze') || lowerMessage.includes('score') || lowerMessage.includes('review')) {
       await analyzeResume();
@@ -133,12 +292,13 @@ Remember: Your resume should tell a story of your career progression and achieve
     // General help
     return `I'm here to help with your resume! I can assist with:
 
+• **Job Requirements** - Ask about roles like "software developer", "data scientist", "UI designer"
 • **Resume Analysis** - Get a score and improvement suggestions
 • **Writing Help** - Craft compelling summaries and descriptions  
 • **Template Advice** - Choose the right design for your industry
 • **Job Search Tips** - Best practices for applications and interviews
 
-Just ask me something like "analyze my resume" or "help with my summary" and I'll provide specific guidance!`;
+Just ask me something like "software developer requirements" or "analyze my resume" and I'll provide specific guidance!`;
   };
 
   const handleSendMessage = async () => {
@@ -181,6 +341,7 @@ Just ask me something like "analyze my resume" or "help with my summary" and I'l
     <>
       {/* Chat Toggle Button */}
       <Button
+        data-chat-toggle
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg z-40 ${isOpen ? 'hidden' : 'flex'} btn-hero`}
         size="sm"

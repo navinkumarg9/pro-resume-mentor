@@ -171,7 +171,17 @@ const Index = () => {
                       <p className="text-sm text-muted-foreground mb-4">
                         Get personalized suggestions, improve your content, and learn best practices.
                       </p>
-                      <Button size="sm" className="btn-professional w-full">
+                      <Button 
+                        size="sm" 
+                        className="btn-professional w-full"
+                        onClick={() => {
+                          // Trigger the chatbot to open by dispatching a custom event
+                          const chatToggle = document.querySelector('[data-chat-toggle]') as HTMLElement;
+                          if (chatToggle) {
+                            chatToggle.click();
+                          }
+                        }}
+                      >
                         <Bot className="h-4 w-4 mr-2" />
                         Chat with AI Assistant
                       </Button>
