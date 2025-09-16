@@ -51,12 +51,44 @@ export interface Project {
   endDate: string;
 }
 
+export interface Certification {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+  credentialId?: string;
+  url?: string;
+}
+
+export interface Language {
+  id: string;
+  name: string;
+  proficiency: 'Native' | 'Fluent' | 'Advanced' | 'Intermediate' | 'Beginner';
+}
+
+export interface Interest {
+  id: string;
+  name: string;
+  description?: string;
+}
+
+export interface CustomSection {
+  id: string;
+  title: string;
+  content: string;
+  type: 'text' | 'list';
+}
+
 export interface ResumeData {
   personalInfo: PersonalInfo;
   experience: Experience[];
   education: Education[];
   skills: Skill[];
   projects: Project[];
+  certifications?: Certification[];
+  languages?: Language[];
+  interests?: Interest[];
+  customSections?: CustomSection[];
   templateId: string;
 }
 
@@ -81,6 +113,18 @@ type ResumeAction =
   | { type: 'ADD_PROJECT'; payload: Project }
   | { type: 'UPDATE_PROJECT'; payload: { id: string; data: Partial<Project> } }
   | { type: 'DELETE_PROJECT'; payload: string }
+  | { type: 'ADD_CERTIFICATION'; payload: Certification }
+  | { type: 'UPDATE_CERTIFICATION'; payload: { id: string; data: Partial<Certification> } }
+  | { type: 'DELETE_CERTIFICATION'; payload: string }
+  | { type: 'ADD_LANGUAGE'; payload: Language }
+  | { type: 'UPDATE_LANGUAGE'; payload: { id: string; data: Partial<Language> } }
+  | { type: 'DELETE_LANGUAGE'; payload: string }
+  | { type: 'ADD_INTEREST'; payload: Interest }
+  | { type: 'UPDATE_INTEREST'; payload: { id: string; data: Partial<Interest> } }
+  | { type: 'DELETE_INTEREST'; payload: string }
+  | { type: 'ADD_CUSTOM_SECTION'; payload: CustomSection }
+  | { type: 'UPDATE_CUSTOM_SECTION'; payload: { id: string; data: Partial<CustomSection> } }
+  | { type: 'DELETE_CUSTOM_SECTION'; payload: string }
   | { type: 'CHANGE_TEMPLATE'; payload: string }
   | { type: 'SET_ANALYSIS_SCORE'; payload: number }
   | { type: 'SET_SUGGESTIONS'; payload: string[] }
@@ -102,6 +146,10 @@ const initialState: ResumeState = {
     education: [],
     skills: [],
     projects: [],
+    certifications: [],
+    languages: [],
+    interests: [],
+    customSections: [],
     templateId: 'modern',
   },
   analysisScore: 0,
@@ -215,15 +263,119 @@ function resumeReducer(state: ResumeState, action: ResumeAction): ResumeState {
           ),
         },
       };
-    case 'DELETE_PROJECT':
-      return {
-        ...state,
-        resumeData: {
-          ...state.resumeData,
-          projects: state.resumeData.projects.filter(project => project.id !== action.payload),
-        },
-      };
-    case 'CHANGE_TEMPLATE':
+      case 'DELETE_PROJECT':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            projects: state.resumeData.projects.filter(project => project.id !== action.payload),
+          },
+        };
+      case 'ADD_CERTIFICATION':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            certifications: [...(state.resumeData.certifications || []), action.payload],
+          },
+        };
+      case 'UPDATE_CERTIFICATION':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            certifications: (state.resumeData.certifications || []).map(cert =>
+              cert.id === action.payload.id ? { ...cert, ...action.payload.data } : cert
+            ),
+          },
+        };
+      case 'DELETE_CERTIFICATION':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            certifications: (state.resumeData.certifications || []).filter(cert => cert.id !== action.payload),
+          },
+        };
+      case 'ADD_LANGUAGE':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            languages: [...(state.resumeData.languages || []), action.payload],
+          },
+        };
+      case 'UPDATE_LANGUAGE':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            languages: (state.resumeData.languages || []).map(lang =>
+              lang.id === action.payload.id ? { ...lang, ...action.payload.data } : lang
+            ),
+          },
+        };
+      case 'DELETE_LANGUAGE':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            languages: (state.resumeData.languages || []).filter(lang => lang.id !== action.payload),
+          },
+        };
+      case 'ADD_INTEREST':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            interests: [...(state.resumeData.interests || []), action.payload],
+          },
+        };
+      case 'UPDATE_INTEREST':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            interests: (state.resumeData.interests || []).map(interest =>
+              interest.id === action.payload.id ? { ...interest, ...action.payload.data } : interest
+            ),
+          },
+        };
+      case 'DELETE_INTEREST':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            interests: (state.resumeData.interests || []).filter(interest => interest.id !== action.payload),
+          },
+        };
+      case 'ADD_CUSTOM_SECTION':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            customSections: [...(state.resumeData.customSections || []), action.payload],
+          },
+        };
+      case 'UPDATE_CUSTOM_SECTION':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            customSections: (state.resumeData.customSections || []).map(section =>
+              section.id === action.payload.id ? { ...section, ...action.payload.data } : section
+            ),
+          },
+        };
+      case 'DELETE_CUSTOM_SECTION':
+        return {
+          ...state,
+          resumeData: {
+            ...state.resumeData,
+            customSections: (state.resumeData.customSections || []).filter(section => section.id !== action.payload),
+          },
+        };
+      case 'CHANGE_TEMPLATE':
       return {
         ...state,
         resumeData: {
