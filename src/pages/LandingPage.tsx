@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -10,10 +10,14 @@ import {
   Star,
   Users,
   Award,
-  Zap
+  Zap,
+  Check,
+  Eye
 } from 'lucide-react';
 
 const LandingPage: React.FC = () => {
+  const [showTemplates, setShowTemplates] = useState(false);
+  const [showFeatures, setShowFeatures] = useState(false);
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/10 to-primary/5">
       {/* Header */}
@@ -29,12 +33,18 @@ const LandingPage: React.FC = () => {
               </h1>
             </div>
             <nav className="hidden md:flex items-center space-x-8">
-              <Link to="#templates" className="text-muted-foreground hover:text-primary transition-colors">
+              <button 
+                onClick={() => setShowTemplates(!showTemplates)} 
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Templates
-              </Link>
-              <Link to="#features" className="text-muted-foreground hover:text-primary transition-colors">
+              </button>
+              <button 
+                onClick={() => setShowFeatures(!showFeatures)} 
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 Features
-              </Link>
+              </button>
               <Link to="/login" className="text-muted-foreground hover:text-primary transition-colors">
                 Sign In
               </Link>
@@ -48,6 +58,203 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </header>
+
+      {/* Templates Section */}
+      {showTemplates && (
+        <section className="py-12 px-4 bg-muted/20 border-b">
+          <div className="container mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-playfair font-bold text-primary mb-4">Featured Templates</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Choose from our professionally designed templates to make your resume stand out
+              </p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mb-8">
+              {/* Modern Template */}
+              <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105">
+                <CardContent className="p-4">
+                  <div className="bg-gradient-to-br from-blue-500 to-blue-700 h-40 rounded-lg mb-4 flex items-center justify-center">
+                    <div className="text-white space-y-2 w-full px-4">
+                      <div className="bg-white/20 h-4 rounded w-3/4"></div>
+                      <div className="bg-white/20 h-2 rounded w-1/2"></div>
+                      <div className="grid grid-cols-3 gap-1 mt-3">
+                        <div className="bg-white/20 h-6 rounded"></div>
+                        <div className="bg-white/20 h-6 rounded"></div>
+                        <div className="bg-white/20 h-6 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-semibold mb-2">Modern</h3>
+                  <p className="text-sm text-muted-foreground mb-3">Clean and professional for tech roles</p>
+                  <Button size="sm" className="w-full">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Preview
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Classic Template */}
+              <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105">
+                <CardContent className="p-4">
+                  <div className="bg-gradient-to-br from-gray-600 to-gray-800 h-40 rounded-lg mb-4 flex items-center justify-center">
+                    <div className="text-white space-y-2 w-full px-4">
+                      <div className="bg-white/20 h-3 rounded w-2/3 mx-auto"></div>
+                      <div className="bg-white/20 h-px w-full"></div>
+                      <div className="space-y-1">
+                        <div className="bg-white/20 h-2 rounded w-full"></div>
+                        <div className="bg-white/20 h-2 rounded w-4/5"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-semibold mb-2">Classic</h3>
+                  <p className="text-sm text-muted-foreground mb-3">Traditional format for conservative industries</p>
+                  <Button size="sm" className="w-full">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Preview
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Creative Template */}
+              <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105">
+                <CardContent className="p-4">
+                  <div className="bg-gradient-to-br from-purple-500 to-pink-500 h-40 rounded-lg mb-4 flex items-center justify-center">
+                    <div className="text-white space-y-2 w-full px-4">
+                      <div className="bg-gradient-to-r from-white/30 to-white/20 h-4 rounded w-full"></div>
+                      <div className="bg-white/20 h-2 rounded w-3/4"></div>
+                      <div className="grid grid-cols-2 gap-1">
+                        <div className="bg-white/20 h-6 rounded"></div>
+                        <div className="bg-white/20 h-6 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-semibold mb-2">Creative</h3>
+                  <p className="text-sm text-muted-foreground mb-3">Colorful and unique for creative roles</p>
+                  <Button size="sm" className="w-full">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Preview
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Tech Pro Template */}
+              <Card className="cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105">
+                <CardContent className="p-4">
+                  <div className="bg-gradient-to-br from-slate-800 to-slate-900 h-40 rounded-lg mb-4 flex items-center justify-center">
+                    <div className="text-blue-300 space-y-2 w-full px-4">
+                      <div className="bg-blue-600 h-4 rounded w-3/4"></div>
+                      <div className="bg-blue-400/20 h-2 rounded w-1/2"></div>
+                      <div className="grid grid-cols-3 gap-1 mt-3">
+                        <div className="bg-blue-400/20 h-6 rounded"></div>
+                        <div className="bg-blue-400/20 h-6 rounded"></div>
+                        <div className="bg-blue-400/20 h-6 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <h3 className="font-semibold mb-2">Tech Pro</h3>
+                  <p className="text-sm text-muted-foreground mb-3">Dark theme for developers and tech professionals</p>
+                  <Button size="sm" className="w-full">
+                    <Eye className="h-4 w-4 mr-2" />
+                    Preview
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="text-center">
+              <Button asChild variant="outline">
+                <Link to="/login">View All Templates</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Features Section */}
+      {showFeatures && (
+        <section className="py-12 px-4 bg-card/50 border-b">
+          <div className="container mx-auto">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-playfair font-bold text-primary mb-4">Powerful Features</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Everything you need to create a professional resume that gets you hired
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              <Card className="card-feature">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
+                    <Zap className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold">AI-Powered Assistant</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Get personalized suggestions and job-specific recommendations from our AI chatbot
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="card-feature">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
+                    <Eye className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold">Live Preview</h3>
+                  <p className="text-sm text-muted-foreground">
+                    See your changes instantly as you type with real-time preview
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="card-feature">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
+                    <Award className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold">Resume Analysis</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Get detailed feedback and scoring to improve your resume quality
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="card-feature">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
+                    <Layout className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold">Professional Templates</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Choose from 7+ professionally designed templates for different industries
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="card-feature">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
+                    <Download className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold">PDF Export</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Download your resume as a high-quality PDF ready for applications
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="card-feature">
+                <CardContent className="p-6 text-center space-y-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto">
+                    <Users className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold">Job-Specific Content</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Get tailored content suggestions for different job roles and industries
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Hero Section */}
       <section className="py-20 px-4">

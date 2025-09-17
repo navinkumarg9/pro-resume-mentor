@@ -49,6 +49,7 @@ export interface Project {
   github?: string;
   startDate: string;
   endDate: string;
+  current: boolean;
 }
 
 export interface Certification {
@@ -56,6 +57,7 @@ export interface Certification {
   name: string;
   issuer: string;
   date: string;
+  expiryDate?: string;
   credentialId?: string;
   url?: string;
 }
@@ -133,27 +135,81 @@ type ResumeAction =
 const initialState: ResumeState = {
   resumeData: {
     personalInfo: {
-      fullName: '',
-      email: '',
-      phone: '',
-      location: '',
-      website: '',
-      linkedin: '',
-      github: '',
-      summary: '',
+      fullName: 'John Doe',
+      email: 'john.doe@email.com',
+      phone: '+1 (555) 123-4567',
+      location: 'New York, NY',
+      website: 'www.johndoe.com',
+      linkedin: 'linkedin.com/in/johndoe',
+      github: 'github.com/johndoe',
+      summary: 'Experienced professional with a passion for innovation and excellence in delivering high-quality solutions.',
     },
-    experience: [],
-    education: [],
-    skills: [],
-    projects: [],
-    certifications: [],
-    languages: [],
-    interests: [],
+    experience: [
+      {
+        id: '1',
+        company: 'Tech Corp',
+        position: 'Senior Developer',
+        startDate: '2022-01',
+        endDate: '',
+        current: true,
+        description: 'Led development of web applications using modern technologies.',
+        achievements: ['Increased team productivity by 40%', 'Delivered 5 major projects on time']
+      }
+    ],
+    education: [
+      {
+        id: '1',
+        institution: 'University of Technology',
+        degree: 'Bachelor of Science',
+        field: 'Computer Science',
+        startDate: '2018-09',
+        endDate: '2022-05',
+        gpa: '3.8',
+        achievements: ['Dean\'s List', 'Magna Cum Laude']
+      }
+    ],
+    skills: [
+      { id: '1', name: 'JavaScript', level: 'Advanced', category: 'Technical' },
+      { id: '2', name: 'React', level: 'Expert', category: 'Technical' },
+      { id: '3', name: 'Leadership', level: 'Advanced', category: 'Soft' }
+    ],
+    projects: [
+      {
+        id: '1',
+        name: 'E-commerce Platform',
+        description: 'Built a full-stack e-commerce platform with modern web technologies.',
+        technologies: ['React', 'Node.js', 'PostgreSQL'],
+        link: 'https://example.com',
+        github: 'https://github.com/johndoe/ecommerce',
+        startDate: '2023-01',
+        endDate: '2023-06',
+        current: false
+      }
+    ],
+    certifications: [
+      {
+        id: '1',
+        name: 'AWS Certified Developer',
+        issuer: 'Amazon Web Services',
+        date: '2023-08',
+        expiryDate: '2026-08',
+        credentialId: 'AWS-123456',
+        url: 'https://aws.amazon.com/certification/'
+      }
+    ],
+    languages: [
+      { id: '1', name: 'English', proficiency: 'Native' },
+      { id: '2', name: 'Spanish', proficiency: 'Intermediate' }
+    ],
+    interests: [
+      { id: '1', name: 'Technology', description: 'Exploring new programming languages and frameworks' },
+      { id: '2', name: 'Photography', description: 'Landscape and portrait photography' }
+    ],
     customSections: [],
     templateId: 'modern',
   },
-  analysisScore: 0,
-  suggestions: [],
+  analysisScore: 75,
+  suggestions: ['Add more skills to improve your profile', 'Consider adding more projects'],
   isLoading: false,
 };
 

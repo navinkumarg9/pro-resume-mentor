@@ -19,7 +19,8 @@ import {
   Languages,
   Heart,
   Settings,
-  Eye
+  Eye,
+  Layout
 } from 'lucide-react';
 import ResumeEditor from '@/components/ResumeEditor';
 import LivePreview from '@/components/LivePreview';
@@ -30,8 +31,8 @@ import { AdditionalSections } from '@/components/AdditionalSections';
 import { SectionEditor } from '@/components/SectionEditor';
 
 const Editor: React.FC = () => {
-  const [analysisOpen, setAnalysisOpen] = useState(true);
-  const [activeTab, setActiveTab] = useState('personal');
+  const [analysisOpen, setAnalysisOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('templates');
   const { state } = useResume();
 
   const handleSave = () => {
@@ -113,7 +114,11 @@ const Editor: React.FC = () => {
               <CardContent className="p-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <div className="border-b px-6 py-3">
-                    <TabsList className="grid w-full grid-cols-5">
+                    <TabsList className="grid w-full grid-cols-6">
+                      <TabsTrigger value="templates" className="flex items-center gap-2">
+                        <Layout className="h-4 w-4" />
+                        <span className="hidden sm:inline">Templates</span>
+                      </TabsTrigger>
                       <TabsTrigger value="personal" className="flex items-center gap-2">
                         <User className="h-4 w-4" />
                         <span className="hidden sm:inline">Personal</span>
@@ -137,6 +142,9 @@ const Editor: React.FC = () => {
                     </TabsList>
                   </div>
 
+                    <TabsContent value="templates" className="mt-0">
+                      <TemplateSelector />
+                    </TabsContent>
                     <TabsContent value="personal" className="mt-0">
                       <SectionEditor section="personal" />
                     </TabsContent>

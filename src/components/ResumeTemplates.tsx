@@ -728,10 +728,150 @@ export const AcademicTemplate: React.FC<TemplateProps> = ({ data, className = ''
   );
 };
 
+// New Templates
+const MinimalistTemplate: React.FC<TemplateProps> = ({ data, className = "" }) => (
+  <div className={`max-w-4xl mx-auto bg-white p-8 shadow-lg ${className}`}>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="text-center border-b pb-6">
+        <h1 className="text-3xl font-light text-gray-900 mb-2">{data.personalInfo.fullName}</h1>
+        <div className="flex justify-center space-x-4 text-sm text-gray-600">
+          <span>{data.personalInfo.email}</span>
+          <span>•</span>
+          <span>{data.personalInfo.phone}</span>
+          <span>•</span>
+          <span>{data.personalInfo.location}</span>
+        </div>
+      </div>
+
+      {/* Summary */}
+      {data.personalInfo.summary && (
+        <div>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+
+      {/* Experience */}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-lg font-medium text-gray-900 mb-4 uppercase tracking-wide">Experience</h2>
+          <div className="space-y-4">
+            {data.experience.map((exp) => (
+              <div key={exp.id}>
+                <div className="flex justify-between items-start mb-1">
+                  <h3 className="font-medium text-gray-900">{exp.position}</h3>
+                  <span className="text-sm text-gray-600">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</span>
+                </div>
+                <p className="text-gray-700 mb-2">{exp.company}</p>
+                <p className="text-sm text-gray-600">{exp.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Education & Skills in two columns */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Education */}
+        {data.education.length > 0 && (
+          <div>
+            <h2 className="text-lg font-medium text-gray-900 mb-4 uppercase tracking-wide">Education</h2>
+            <div className="space-y-3">
+              {data.education.map((edu) => (
+                <div key={edu.id}>
+                  <h3 className="font-medium text-gray-900">{edu.degree}</h3>
+                  <p className="text-gray-700">{edu.institution}</p>
+                  <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Skills */}
+        {data.skills.length > 0 && (
+          <div>
+            <h2 className="text-lg font-medium text-gray-900 mb-4 uppercase tracking-wide">Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.map((skill) => (
+                <span key={skill.id} className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded">
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+const TechTemplate: React.FC<TemplateProps> = ({ data, className = "" }) => (
+  <div className={`max-w-4xl mx-auto bg-slate-900 text-white p-8 shadow-lg ${className}`}>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 rounded-lg">
+        <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName}</h1>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-blue-100">
+          <span>📧 {data.personalInfo.email}</span>
+          <span>📱 {data.personalInfo.phone}</span>
+          <span>📍 {data.personalInfo.location}</span>
+        </div>
+      </div>
+
+      {/* Summary */}
+      {data.personalInfo.summary && (
+        <div className="bg-slate-800 p-4 rounded-lg">
+          <h2 className="text-xl font-semibold text-blue-400 mb-2">About</h2>
+          <p className="text-slate-300">{data.personalInfo.summary}</p>
+        </div>
+      )}
+
+      {/* Experience */}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold text-blue-400 mb-4">💼 Experience</h2>
+          <div className="space-y-4">
+            {data.experience.map((exp) => (
+              <div key={exp.id} className="bg-slate-800 p-4 rounded-lg border-l-4 border-blue-500">
+                <div className="flex justify-between items-start mb-2">
+                  <h3 className="text-lg font-semibold text-white">{exp.position}</h3>
+                  <span className="text-blue-300 text-sm bg-blue-900 px-2 py-1 rounded">
+                    {exp.startDate} - {exp.current ? 'Present' : exp.endDate}
+                  </span>
+                </div>
+                <p className="text-blue-300 font-medium mb-2">{exp.company}</p>
+                <p className="text-slate-300 text-sm">{exp.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Skills */}
+      {data.skills.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold text-blue-400 mb-4">🛠️ Skills</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {data.skills.map((skill) => (
+              <div key={skill.id} className="bg-slate-800 p-3 rounded-lg text-center">
+                <span className="text-white font-medium">{skill.name}</span>
+                <div className="text-xs text-blue-300 mt-1">{skill.level}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
 export const resumeTemplates = {
   modern: { name: 'Modern', component: ModernTemplate, description: 'Clean and professional for tech roles' },
   classic: { name: 'Classic', component: ClassicTemplate, description: 'Traditional format for conservative industries' },
   creative: { name: 'Creative', component: CreativeTemplate, description: 'Colorful and unique for creative roles' },
   executive: { name: 'Executive', component: ExecutiveTemplate, description: 'Sophisticated layout for senior positions' },
   academic: { name: 'Academic', component: AcademicTemplate, description: 'Detailed format for research and education' },
+  minimalist: { name: 'Minimalist', component: MinimalistTemplate, description: 'Clean and simple design with focus on content' },
+  tech: { name: 'Tech Pro', component: TechTemplate, description: 'Dark theme perfect for developers and tech professionals' },
 };
