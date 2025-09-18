@@ -76,6 +76,7 @@ const ResumeEditor: React.FC = () => {
       github: '',
       startDate: '',
       endDate: '',
+      current: false,
     };
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
   };

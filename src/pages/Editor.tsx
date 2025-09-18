@@ -29,6 +29,7 @@ import TemplateSelector from '@/components/TemplateSelector';
 import { useResume } from '@/components/ResumeStore';
 import { AdditionalSections } from '@/components/AdditionalSections';
 import { SectionEditor } from '@/components/SectionEditor';
+import ChatBot from '@/components/ChatBot';
 
 const Editor: React.FC = () => {
   const [analysisOpen, setAnalysisOpen] = useState(false);
@@ -61,6 +62,14 @@ const Editor: React.FC = () => {
               <Button variant="outline" onClick={handleSave}>
                 <Save className="mr-2 h-4 w-4" />
                 Save
+              </Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setActiveTab('templates')}
+                className="btn-secondary"
+              >
+                <Layout className="mr-2 h-4 w-4" />
+                Change Template
               </Button>
               <Button className="btn-professional" onClick={handleDownload}>
                 <Download className="mr-2 h-4 w-4" />
@@ -221,6 +230,9 @@ const Editor: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* ChatBot */}
+      <ChatBot />
     </div>
   );
 };

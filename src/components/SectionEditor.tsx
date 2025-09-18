@@ -79,6 +79,7 @@ export const SectionEditor: React.FC<SectionEditorProps> = ({ section }) => {
       github: '',
       startDate: '',
       endDate: '',
+      current: false,
     };
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
   };
