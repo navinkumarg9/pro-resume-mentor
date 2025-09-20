@@ -176,23 +176,24 @@ const LivePreview: React.FC = () => {
         {/* Resume Preview Container */}
         <div className="border border-border rounded-lg overflow-hidden bg-white shadow-lg">
           <div 
-            className="overflow-auto"
+            className="overflow-auto flex justify-center items-start"
             style={{ 
               height: isFullscreen ? 'calc(100vh - 10rem)' : '800px',
-              backgroundColor: '#f8f9fa'
+              backgroundColor: '#f8f9fa',
+              padding: '20px'
             }}
           >
             <div 
-              className="mx-auto bg-white shadow-xl"
+              className="bg-white shadow-xl overflow-hidden"
               style={{ 
-                width: '794px', // A4 width in pixels at 96 DPI
-                minHeight: '1123px', // A4 height in pixels at 96 DPI
-                transform: `scale(${zoom / 100})`,
-                transformOrigin: 'top center',
-                margin: zoom === 100 ? '20px auto' : `${20 * (zoom / 100)}px auto`
+                width: zoom === 100 ? '100%' : `${zoom}%`,
+                maxWidth: '800px',
+                minHeight: '1000px',
+                transform: zoom !== 100 ? `scale(${zoom / 100})` : 'none',
+                transformOrigin: 'top center'
               }}
             >
-              <div ref={previewRef}>
+              <div ref={previewRef} className="p-8">
                 <TemplateComponent 
                   data={state.resumeData} 
                   className="h-full"
