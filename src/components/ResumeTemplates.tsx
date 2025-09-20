@@ -869,9 +869,12 @@ const TechTemplate: React.FC<TemplateProps> = ({ data, className = "" }) => (
 export const resumeTemplates = {
   modern: { name: 'Modern', component: ModernTemplate, description: 'Clean and professional for tech roles' },
   classic: { name: 'Classic', component: ClassicTemplate, description: 'Traditional format for conservative industries' },
+  minimal: { name: 'Minimal', component: MinimalistTemplate, description: 'Clean and simple design with focus on content' },
+  professional: { name: 'Professional', component: ClassicTemplate, description: 'Corporate-friendly layout with structured sections' },
   creative: { name: 'Creative', component: CreativeTemplate, description: 'Colorful and unique for creative roles' },
   executive: { name: 'Executive', component: ExecutiveTemplate, description: 'Sophisticated layout for senior positions' },
-  academic: { name: 'Academic', component: AcademicTemplate, description: 'Detailed format for research and education' },
-  minimalist: { name: 'Minimalist', component: MinimalistTemplate, description: 'Clean and simple design with focus on content' },
-  tech: { name: 'Tech Pro', component: TechTemplate, description: 'Dark theme perfect for developers and tech professionals' },
+  elegant: { name: 'Elegant', component: AcademicTemplate, description: 'Refined and elegant design with subtle styling' },
+  bold: { name: 'Bold', component: CreativeTemplate, description: 'Eye-catching design with strong visual impact' },
+  simple: { name: 'Simple', component: ClassicTemplate, description: 'Straightforward layout focusing on readability' },
+  contemporary: { name: 'Contemporary', component: TechTemplate, description: 'Modern design with fresh styling elements' },
 };

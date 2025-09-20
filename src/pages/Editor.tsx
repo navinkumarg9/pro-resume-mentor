@@ -25,7 +25,7 @@ import {
 import ResumeEditor from '@/components/ResumeEditor';
 import LivePreview from '@/components/LivePreview';
 import ResumeAnalyzer from '@/components/ResumeAnalyzer';
-import TemplateSelector from '@/components/TemplateSelector';
+import TemplateModal from '@/components/TemplateModal';
 import { useResume } from '@/components/ResumeStore';
 import { AdditionalSections } from '@/components/AdditionalSections';
 import { SectionEditor } from '@/components/SectionEditor';
@@ -33,7 +33,8 @@ import ChatBot from '@/components/ChatBot';
 
 const Editor: React.FC = () => {
   const [analysisOpen, setAnalysisOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('templates');
+  const [activeTab, setActiveTab] = useState('personal');
+  const [templateModalOpen, setTemplateModalOpen] = useState(false);
   const { state } = useResume();
 
   const handleSave = () => {
@@ -65,7 +66,7 @@ const Editor: React.FC = () => {
               </Button>
               <Button 
                 variant="outline" 
-                onClick={() => setActiveTab('templates')}
+                onClick={() => setTemplateModalOpen(true)}
                 className="btn-secondary"
               >
                 <Layout className="mr-2 h-4 w-4" />
@@ -123,11 +124,7 @@ const Editor: React.FC = () => {
               <CardContent className="p-0">
                 <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <div className="border-b px-6 py-3">
-                    <TabsList className="grid w-full grid-cols-6">
-                      <TabsTrigger value="templates" className="flex items-center gap-2">
-                        <Layout className="h-4 w-4" />
-                        <span className="hidden sm:inline">Templates</span>
-                      </TabsTrigger>
+                    <TabsList className="grid w-full grid-cols-5">
                       <TabsTrigger value="personal" className="flex items-center gap-2">
                         <User className="h-4 w-4" />
                         <span className="hidden sm:inline">Personal</span>
@@ -150,10 +147,6 @@ const Editor: React.FC = () => {
                       </TabsTrigger>
                     </TabsList>
                   </div>
-
-                    <TabsContent value="templates" className="mt-0">
-                      <TemplateSelector />
-                    </TabsContent>
                     <TabsContent value="personal" className="mt-0">
                       <SectionEditor section="personal" />
                     </TabsContent>
@@ -230,6 +223,12 @@ const Editor: React.FC = () => {
           </div>
         </div>
       </div>
+      
+      {/* Template Selection Modal */}
+      <TemplateModal 
+        open={templateModalOpen} 
+        onOpenChange={setTemplateModalOpen} 
+      />
       
       {/* ChatBot */}
       <ChatBot />

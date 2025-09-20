@@ -185,11 +185,11 @@ const LivePreview: React.FC = () => {
             <div 
               className="mx-auto bg-white shadow-xl"
               style={{ 
-                width: `${(210 * zoom) / 100}mm`, // A4 width
-                minHeight: `${(297 * zoom) / 100}mm`, // A4 height
+                width: '794px', // A4 width in pixels at 96 DPI
+                minHeight: '1123px', // A4 height in pixels at 96 DPI
                 transform: `scale(${zoom / 100})`,
                 transformOrigin: 'top center',
-                margin: '20px auto'
+                margin: zoom === 100 ? '20px auto' : `${20 * (zoom / 100)}px auto`
               }}
             >
               <div ref={previewRef}>
