@@ -100,16 +100,36 @@ const LivePreview: React.FC = () => {
   return (
     <Card className={`${isFullscreen ? 'fixed inset-0 z-50 m-0 rounded-none' : ''}`}>
       <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
+        {/* Top Row - Resume Preview Title and Full Preview Button */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
-            Live Preview
-            <Badge variant="outline" className="ml-2">
+            <span className="text-lg font-semibold">Resume Preview</span>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={toggleFullscreen}
+            className="flex items-center gap-2"
+          >
+            <Eye className="h-4 w-4" />
+            Full Preview
+          </Button>
+        </div>
+
+        {/* Bottom Row - Live Preview with Controls */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Eye className="h-5 w-5" />
+            <span className="text-xl font-bold">Live Preview</span>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            {/* Template Badge */}
+            <Badge variant="outline" className="px-3 py-1">
               {currentTemplate.name}
             </Badge>
-          </CardTitle>
-          
-          <div className="flex items-center gap-2">
+
             {/* Zoom Controls */}
             <div className="flex items-center gap-1 border rounded-lg p-1">
               <Button
@@ -140,7 +160,7 @@ const LivePreview: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={handlePrint}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 px-4"
             >
               <Printer className="h-4 w-4" />
               Print
@@ -150,7 +170,7 @@ const LivePreview: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={handleDownloadPDF}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 px-4"
             >
               <Download className="h-4 w-4" />
               PDF
