@@ -100,12 +100,8 @@ const LivePreview: React.FC = () => {
   return (
     <Card className={`${isFullscreen ? 'fixed inset-0 z-50 m-0 rounded-none' : ''}`}>
       <CardHeader className="pb-3">
-        {/* Top Row - Resume Preview Title and Full Preview Button */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Eye className="h-5 w-5" />
-            <span className="text-lg font-semibold">Resume Preview</span>
-          </div>
+        <div className="flex items-center justify-between">
+          <h2 className="text-lg font-semibold">Resume Preview</h2>
           <Button
             variant="ghost"
             size="sm"
@@ -116,22 +112,18 @@ const LivePreview: React.FC = () => {
             Full Preview
           </Button>
         </div>
-
-        {/* Bottom Row - Live Preview with Controls */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <Eye className="h-5 w-5" />
-            <span className="text-xl font-bold">Live Preview</span>
-          </div>
+      </CardHeader>
+      
+      <CardContent className={`${isFullscreen ? 'h-[calc(100vh-5rem)] overflow-auto' : ''}`}>
+        {/* Floating Controls */}
+        <div className="flex items-center justify-between mb-4">
+          <Badge variant="outline" className="px-3 py-1">
+            {currentTemplate.name}
+          </Badge>
           
-          <div className="flex items-center gap-3">
-            {/* Template Badge */}
-            <Badge variant="outline" className="px-3 py-1">
-              {currentTemplate.name}
-            </Badge>
-
+          <div className="flex items-center gap-2">
             {/* Zoom Controls */}
-            <div className="flex items-center gap-1 border rounded-lg p-1">
+            <div className="flex items-center gap-1 border rounded-lg p-1 bg-background">
               <Button
                 variant="ghost"
                 size="sm"
@@ -160,7 +152,7 @@ const LivePreview: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={handlePrint}
-              className="flex items-center gap-2 px-4"
+              className="flex items-center gap-2"
             >
               <Printer className="h-4 w-4" />
               Print
@@ -170,29 +162,14 @@ const LivePreview: React.FC = () => {
               variant="outline"
               size="sm"
               onClick={handleDownloadPDF}
-              className="flex items-center gap-2 px-4"
+              className="flex items-center gap-2"
             >
               <Download className="h-4 w-4" />
               PDF
             </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleFullscreen}
-              className="h-8 w-8 p-0"
-            >
-              {isFullscreen ? (
-                <Minimize2 className="h-4 w-4" />
-              ) : (
-                <Maximize2 className="h-4 w-4" />
-              )}
-            </Button>
           </div>
         </div>
-      </CardHeader>
-      
-      <CardContent className={`${isFullscreen ? 'h-[calc(100vh-5rem)] overflow-auto' : ''}`}>
+
         {/* Resume Preview Container */}
         <div className="border border-border rounded-lg overflow-hidden bg-white shadow-lg">
           <div 
