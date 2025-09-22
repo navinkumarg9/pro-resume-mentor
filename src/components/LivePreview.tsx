@@ -179,20 +179,21 @@ const LivePreview: React.FC = () => {
             style={{ 
               height: isFullscreen ? 'calc(100vh - 10rem)' : '800px',
               backgroundColor: '#f8f9fa',
-              padding: '20px'
+              padding: isFullscreen ? '20px' : '10px'
             }}
           >
             <div 
-              className="bg-white shadow-xl overflow-hidden"
+              className="bg-white shadow-xl"
               style={{ 
-                width: zoom === 100 ? '100%' : `${zoom}%`,
-                maxWidth: '800px',
+                width: isFullscreen ? '800px' : '100%',
+                maxWidth: isFullscreen ? '800px' : 'none',
                 minHeight: '1000px',
-                transform: zoom !== 100 ? `scale(${zoom / 100})` : 'none',
-                transformOrigin: 'top center'
+                transform: `scale(${zoom / 100})`,
+                transformOrigin: 'top center',
+                fontSize: isFullscreen ? '16px' : '14px'
               }}
             >
-              <div ref={previewRef} className="p-8">
+              <div ref={previewRef} className="p-6">
                 <TemplateComponent 
                   data={state.resumeData} 
                   className="h-full"
