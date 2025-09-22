@@ -99,9 +99,13 @@ const LivePreview: React.FC = () => {
 
   return (
     <Card className={`${isFullscreen ? 'fixed inset-0 z-50 m-0 rounded-none' : ''}`}>
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <h2 className="text-lg font-semibold">Resume Preview</h2>
+      <CardContent className={`${isFullscreen ? 'h-[calc(100vh-5rem)] overflow-auto' : 'pt-6'}`}>
+        {/* Header Controls */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <Eye className="h-5 w-5" />
+            <h2 className="text-lg font-semibold">Resume Preview</h2>
+          </div>
           <Button
             variant="ghost"
             size="sm"
@@ -112,9 +116,7 @@ const LivePreview: React.FC = () => {
             Full Preview
           </Button>
         </div>
-      </CardHeader>
-      
-      <CardContent className={`${isFullscreen ? 'h-[calc(100vh-5rem)] overflow-auto' : ''}`}>
+
         {/* Floating Controls */}
         <div className="flex items-center justify-between mb-4">
           <Badge variant="outline" className="px-3 py-1">
