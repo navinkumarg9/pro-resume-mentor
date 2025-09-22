@@ -205,19 +205,7 @@ const Editor: React.FC = () => {
 
           {/* Right Column - Live Preview */}
           <div className="bg-card rounded-lg border">
-            <div className="border-b px-6 py-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold flex items-center gap-2">
-                  <Eye className="h-5 w-5" />
-                  Resume Preview
-                </h3>
-                <Button variant="ghost" size="sm">
-                  <Eye className="h-4 w-4 mr-2" />
-                  Full Preview
-                </Button>
-              </div>
-            </div>
-            <div className="p-2 h-[calc(100%-60px)]">
+            <div className="p-2">
               <LivePreview />
             </div>
           </div>
