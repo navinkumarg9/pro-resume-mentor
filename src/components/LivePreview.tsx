@@ -42,23 +42,31 @@ const LivePreview: React.FC = () => {
           scale: 2,
           useCORS: true,
           backgroundColor: '#ffffff',
-          width: 794, // A4 width in pixels at 96 DPI
-          height: 1123, // A4 height in pixels at 96 DPI
         });
 
-        // Create PDF
-        const pdf = new jsPDF({
-          orientation: 'portrait',
-          unit: 'mm',
-          format: 'a4',
-        });
+        const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
 
         const imgData = canvas.toDataURL('image/png');
-        const imgWidth = 210; // A4 width in mm
+        const imgWidth = pageWidth; // Fit to A4 width in mm
         const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-        pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-        
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        // First page
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        // Additional pages
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight; // shift up remaining content
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
+        }
+
         // Download the PDF
         const fileName = `${state.resumeData.personalInfo.fullName || 'Resume'}.pdf`;
         pdf.save(fileName);
@@ -182,12 +190,11 @@ const LivePreview: React.FC = () => {
             }}
           >
             <div 
-              className="bg-white w-full"
+              className="bg-white"
               style={{ 
-                minHeight: '1000px',
+                width: '794px', // A4 width at ~96 DPI
                 transform: `scale(${zoom / 100})`,
-                transformOrigin: 'top left',
-                fontSize: isFullscreen ? '16px' : '14px'
+                transformOrigin: 'top left'
               }}
             >
               <div ref={previewRef} className="p-6">
