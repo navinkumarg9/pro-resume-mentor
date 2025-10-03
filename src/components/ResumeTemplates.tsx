@@ -1211,6 +1211,870 @@ const HealthcareTemplate: React.FC<TemplateProps> = ({ data, className = "" }) =
   </div>
 );
 
+// Sales Template - Orange/Yellow theme
+export const SalesTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-white text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-orange-500 to-amber-500 text-white p-8">
+      <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="grid grid-cols-2 gap-2 text-sm">
+        {data.personalInfo.email && <p>📧 {data.personalInfo.email}</p>}
+        {data.personalInfo.phone && <p>📱 {data.personalInfo.phone}</p>}
+        {data.personalInfo.location && <p>📍 {data.personalInfo.location}</p>}
+        {data.personalInfo.website && <p>🌐 {data.personalInfo.website}</p>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="border-l-4 border-orange-500 pl-4">
+          <h2 className="text-2xl font-bold text-orange-600 mb-3">Professional Summary</h2>
+          <p className="text-gray-700">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold text-orange-600 mb-4">Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-6 border-l-2 border-orange-300 pl-4">
+              <h3 className="font-bold text-lg">{exp.position}</h3>
+              <p className="text-orange-600 font-semibold">{exp.company}</p>
+              <p className="text-sm text-gray-600">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="mt-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-disc list-inside mt-2 space-y-1">
+                  {exp.achievements.map((achievement, i) => <li key={i}>{achievement}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.education.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-orange-600 mb-3">Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-semibold">{edu.degree}</h3>
+                <p className="text-orange-600">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {data.skills.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-orange-600 mb-3">Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.map((skill) => (
+                <span key={skill.id} className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full text-sm">
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Finance Template - Green/Teal theme
+export const FinanceTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-white text-gray-900 ${className}`}>
+    <div className="border-b-4 border-teal-600 pb-6 mb-6 p-8">
+      <h1 className="text-3xl font-bold text-teal-900 mb-3">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-4 text-sm text-gray-700">
+        {data.personalInfo.email && <span>✉️ {data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span>☎️ {data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span>📍 {data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="px-8 pb-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-teal-50 p-4 rounded-lg">
+          <h2 className="text-xl font-bold text-teal-800 mb-2">Professional Profile</h2>
+          <p className="text-gray-700">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-xl font-bold text-teal-800 mb-4 uppercase tracking-wide">Professional Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 pb-5 border-b border-teal-100">
+              <div className="flex justify-between mb-2">
+                <div>
+                  <h3 className="font-bold text-lg text-teal-900">{exp.position}</h3>
+                  <p className="text-teal-700 font-medium">{exp.company}</p>
+                </div>
+                <span className="text-sm text-gray-600">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</span>
+              </div>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-disc list-inside space-y-1 text-gray-700">
+                  {exp.achievements.map((achievement, i) => <li key={i}>{achievement}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.education.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-teal-800 mb-3 uppercase tracking-wide">Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3 bg-teal-50 p-3 rounded">
+                <h3 className="font-semibold text-teal-900">{edu.degree}</h3>
+                <p className="text-teal-700">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {data.skills.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-teal-800 mb-3 uppercase tracking-wide">Core Competencies</h2>
+            <div className="grid grid-cols-2 gap-2">
+              {data.skills.map((skill) => (
+                <div key={skill.id} className="flex items-center gap-2">
+                  <span className="w-2 h-2 bg-teal-600 rounded-full"></span>
+                  <span className="text-sm">{skill.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Engineering Template - Navy/Cyan theme
+export const EngineeringTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-slate-50 text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-slate-800 to-cyan-700 text-white p-8">
+      <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-4 text-sm opacity-90">
+        {data.personalInfo.email && <span>{data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span>{data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span>{data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-white p-5 rounded-lg shadow-sm">
+          <h2 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+            <span className="w-1 h-6 bg-cyan-600"></span>
+            Technical Summary
+          </h2>
+          <p className="text-gray-700">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div className="bg-white p-5 rounded-lg shadow-sm">
+          <h2 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+            <span className="w-1 h-6 bg-cyan-600"></span>
+            Professional Experience
+          </h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 pb-5 border-b border-slate-200 last:border-0">
+              <h3 className="font-bold text-lg text-slate-900">{exp.position}</h3>
+              <p className="text-cyan-700 font-semibold">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-none space-y-1 text-gray-700">
+                  {exp.achievements.map((achievement, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-cyan-600">▸</span>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.skills.length > 0 && (
+          <div className="bg-white p-5 rounded-lg shadow-sm">
+            <h2 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+              <span className="w-1 h-6 bg-cyan-600"></span>
+              Technical Skills
+            </h2>
+            {['Technical', 'Soft', 'Language', 'Other'].map((category) => {
+              const categorySkills = data.skills.filter(skill => skill.category === category);
+              if (categorySkills.length === 0) return null;
+              return (
+                <div key={category} className="mb-3">
+                  <h3 className="font-semibold text-sm text-slate-700 mb-1">{category}</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {categorySkills.map((skill) => (
+                      <span key={skill.id} className="bg-cyan-100 text-cyan-800 px-2 py-1 rounded text-xs">
+                        {skill.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {data.education.length > 0 && (
+          <div className="bg-white p-5 rounded-lg shadow-sm">
+            <h2 className="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
+              <span className="w-1 h-6 bg-cyan-600"></span>
+              Education
+            </h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-semibold text-slate-900">{edu.degree}</h3>
+                <p className="text-cyan-700">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Design Portfolio Template - Vibrant multi-color
+export const DesignTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 text-gray-900 ${className}`}>
+    <div className="p-8">
+      <div className="bg-white rounded-2xl shadow-xl p-8 mb-6">
+        <h1 className="text-5xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-4">
+          {data.personalInfo.fullName || 'Your Name'}
+        </h1>
+        <div className="grid grid-cols-2 gap-3 text-sm text-gray-700">
+          {data.personalInfo.email && <p className="flex items-center gap-2"><span className="text-pink-500">●</span>{data.personalInfo.email}</p>}
+          {data.personalInfo.phone && <p className="flex items-center gap-2"><span className="text-purple-500">●</span>{data.personalInfo.phone}</p>}
+          {data.personalInfo.location && <p className="flex items-center gap-2"><span className="text-blue-500">●</span>{data.personalInfo.location}</p>}
+          {data.personalInfo.website && <p className="flex items-center gap-2"><span className="text-indigo-500">●</span>{data.personalInfo.website}</p>}
+        </div>
+      </div>
+      {data.personalInfo.summary && (
+        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+          <h2 className="text-2xl font-bold text-purple-700 mb-3">About Me</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
+          <h2 className="text-2xl font-bold text-purple-700 mb-4">Experience</h2>
+          {data.experience.map((exp, idx) => (
+            <div key={exp.id} className="mb-5 pb-5 border-b border-gray-200 last:border-0">
+              <div className="flex items-start gap-3">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
+                  idx % 3 === 0 ? 'bg-pink-500' : idx % 3 === 1 ? 'bg-purple-500' : 'bg-blue-500'
+                }`}>
+                  {idx + 1}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold text-lg">{exp.position}</h3>
+                  <p className="text-purple-600 font-semibold">{exp.company}</p>
+                  <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+                  <p className="text-gray-700">{exp.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.skills.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-xl p-6">
+            <h2 className="text-2xl font-bold text-purple-700 mb-3">Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.map((skill, idx) => (
+                <span key={skill.id} className={`px-3 py-1 rounded-full text-white text-sm ${
+                  idx % 3 === 0 ? 'bg-pink-500' : idx % 3 === 1 ? 'bg-purple-500' : 'bg-blue-500'
+                }`}>
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        {data.education.length > 0 && (
+          <div className="bg-white rounded-2xl shadow-xl p-6">
+            <h2 className="text-2xl font-bold text-purple-700 mb-3">Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-semibold">{edu.degree}</h3>
+                <p className="text-purple-600">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Consulting Template - Gray/Blue professional
+export const ConsultingTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-white text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-gray-700 to-blue-700 text-white p-8">
+      <h1 className="text-3xl font-bold tracking-tight mb-3">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-4 text-sm">
+        {data.personalInfo.email && <span>{data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span>|</span>}
+        {data.personalInfo.phone && <span>{data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span>|</span>}
+        {data.personalInfo.location && <span>{data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="border-l-4 border-blue-700 pl-5">
+          <h2 className="text-xl font-bold text-gray-800 mb-2 uppercase tracking-wide">Executive Summary</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-xl font-bold text-gray-800 mb-4 uppercase tracking-wide border-b-2 border-gray-300 pb-2">
+            Professional Experience
+          </h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-bold text-lg text-gray-900">{exp.position}</h3>
+                  <p className="text-blue-700 font-semibold">{exp.company}</p>
+                </div>
+                <span className="text-sm text-gray-600 font-medium">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</span>
+              </div>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-disc list-inside space-y-1 text-gray-700 ml-2">
+                  {exp.achievements.map((achievement, i) => <li key={i}>{achievement}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-3 gap-6">
+        {data.education.length > 0 && (
+          <div className="col-span-2">
+            <h2 className="text-xl font-bold text-gray-800 mb-3 uppercase tracking-wide border-b-2 border-gray-300 pb-2">Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
+                <p className="text-blue-700">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {data.skills.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-gray-800 mb-3 uppercase tracking-wide border-b-2 border-gray-300 pb-2">Skills</h2>
+            <div className="space-y-1">
+              {data.skills.slice(0, 10).map((skill) => (
+                <div key={skill.id} className="text-sm text-gray-700">• {skill.name}</div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Education Template - Warm brown/orange
+export const EducationTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-amber-50 text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-amber-700 to-orange-600 text-white p-8">
+      <h1 className="text-4xl font-serif font-bold mb-3">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="grid grid-cols-2 gap-2 text-sm">
+        {data.personalInfo.email && <p>✉ {data.personalInfo.email}</p>}
+        {data.personalInfo.phone && <p>☎ {data.personalInfo.phone}</p>}
+        {data.personalInfo.location && <p>⌂ {data.personalInfo.location}</p>}
+        {data.personalInfo.website && <p>⊕ {data.personalInfo.website}</p>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-white rounded-lg p-5 shadow-md">
+          <h2 className="text-2xl font-serif font-bold text-amber-800 mb-3">Teaching Philosophy</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.education.length > 0 && (
+        <div className="bg-white rounded-lg p-5 shadow-md">
+          <h2 className="text-2xl font-serif font-bold text-amber-800 mb-4">Academic Credentials</h2>
+          {data.education.map((edu) => (
+            <div key={edu.id} className="mb-4 pb-4 border-b border-amber-200 last:border-0">
+              <h3 className="font-bold text-lg text-gray-900">{edu.degree}</h3>
+              <p className="text-amber-700 font-semibold">{edu.institution}</p>
+              <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              {edu.gpa && <p className="text-sm text-gray-600">GPA: {edu.gpa}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div className="bg-white rounded-lg p-5 shadow-md">
+          <h2 className="text-2xl font-serif font-bold text-amber-800 mb-4">Teaching Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-4 pb-4 border-b border-amber-200 last:border-0">
+              <h3 className="font-bold text-lg text-gray-900">{exp.position}</h3>
+              <p className="text-amber-700 font-semibold">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700">{exp.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      {data.skills.length > 0 && (
+        <div className="bg-white rounded-lg p-5 shadow-md">
+          <h2 className="text-2xl font-serif font-bold text-amber-800 mb-3">Areas of Expertise</h2>
+          <div className="grid grid-cols-3 gap-3">
+            {data.skills.map((skill) => (
+              <div key={skill.id} className="bg-amber-100 text-amber-900 px-3 py-2 rounded-md text-center text-sm font-medium">
+                {skill.name}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+// Nonprofit Template - Earth tones
+export const NonprofitTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-white text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white p-8">
+      <h1 className="text-3xl font-bold mb-2">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-3 text-sm">
+        {data.personalInfo.email && <span>📧 {data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span>📱 {data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span>📍 {data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="border-l-4 border-emerald-600 pl-4 bg-emerald-50 p-4 rounded-r-lg">
+          <h2 className="text-xl font-bold text-emerald-800 mb-2">Mission Statement</h2>
+          <p className="text-gray-700">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-xl font-bold text-emerald-700 mb-4 pb-2 border-b-2 border-emerald-200">Impact & Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 bg-emerald-50 p-4 rounded-lg">
+              <h3 className="font-bold text-lg text-gray-900">{exp.position}</h3>
+              <p className="text-emerald-700 font-semibold">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <div className="space-y-1">
+                  {exp.achievements.map((achievement, i) => (
+                    <div key={i} className="flex gap-2 text-gray-700">
+                      <span className="text-emerald-600">✓</span>
+                      <span>{achievement}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.education.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-emerald-700 mb-3 pb-2 border-b-2 border-emerald-200">Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3 bg-emerald-50 p-3 rounded-lg">
+                <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
+                <p className="text-emerald-700">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {data.skills.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-emerald-700 mb-3 pb-2 border-b-2 border-emerald-200">Core Competencies</h2>
+            <div className="space-y-2">
+              {data.skills.map((skill) => (
+                <div key={skill.id} className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
+                  <span className="text-gray-700">{skill.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Real Estate Template - Gold/Brown
+export const RealEstateTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-white text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-yellow-600 to-amber-700 text-white p-8">
+      <h1 className="text-4xl font-bold mb-3 tracking-wide">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="grid grid-cols-2 gap-2 text-sm">
+        {data.personalInfo.email && <p>✉ {data.personalInfo.email}</p>}
+        {data.personalInfo.phone && <p>☎ {data.personalInfo.phone}</p>}
+        {data.personalInfo.location && <p>⌂ {data.personalInfo.location}</p>}
+        {data.personalInfo.website && <p>⊕ {data.personalInfo.website}</p>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-5">
+          <h2 className="text-2xl font-bold text-amber-800 mb-3">Professional Profile</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold text-amber-800 mb-4 pb-2 border-b-4 border-amber-300">Professional Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 pl-6 border-l-4 border-amber-300">
+              <h3 className="font-bold text-xl text-gray-900">{exp.position}</h3>
+              <p className="text-amber-700 font-bold text-lg">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-none space-y-1 text-gray-700">
+                  {exp.achievements.map((achievement, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-amber-600 font-bold">★</span>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.education.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-amber-800 mb-3 pb-2 border-b-2 border-amber-300">Education & Credentials</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3 bg-amber-50 p-3 rounded-lg">
+                <h3 className="font-bold text-gray-900">{edu.degree}</h3>
+                <p className="text-amber-700 font-semibold">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {data.skills.length > 0 && (
+          <div>
+            <h2 className="text-xl font-bold text-amber-800 mb-3 pb-2 border-b-2 border-amber-300">Specializations</h2>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.map((skill) => (
+                <span key={skill.id} className="bg-amber-200 text-amber-900 px-3 py-1 rounded-md font-semibold text-sm">
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Hospitality Template - Burgundy/Cream
+export const HospitalityTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-rose-50 text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-rose-800 to-red-700 text-white p-8">
+      <h1 className="text-4xl font-serif font-bold mb-3">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-4 text-sm opacity-95">
+        {data.personalInfo.email && <span>{data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span>{data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span>{data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-white rounded-lg p-6 shadow-md border-l-4 border-rose-700">
+          <h2 className="text-2xl font-serif font-bold text-rose-800 mb-3">Professional Summary</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div className="bg-white rounded-lg p-6 shadow-md">
+          <h2 className="text-2xl font-serif font-bold text-rose-800 mb-4">Professional Experience</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 pb-5 border-b border-rose-200 last:border-0">
+              <h3 className="font-bold text-lg text-gray-900">{exp.position}</h3>
+              <p className="text-rose-700 font-semibold text-lg">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-disc list-inside space-y-1 text-gray-700 ml-2">
+                  {exp.achievements.map((achievement, i) => <li key={i}>{achievement}</li>)}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.education.length > 0 && (
+          <div className="bg-white rounded-lg p-6 shadow-md">
+            <h2 className="text-xl font-serif font-bold text-rose-800 mb-3">Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
+                <p className="text-rose-700">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+        {data.skills.length > 0 && (
+          <div className="bg-white rounded-lg p-6 shadow-md">
+            <h2 className="text-xl font-serif font-bold text-rose-800 mb-3">Skills & Expertise</h2>
+            <div className="space-y-2">
+              {data.skills.map((skill) => (
+                <div key={skill.id} className="bg-rose-100 text-rose-900 px-3 py-2 rounded-md">
+                  {skill.name}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Media Template - Bold colors
+export const MediaTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-slate-900 text-white ${className}`}>
+    <div className="bg-gradient-to-r from-red-600 via-yellow-500 to-blue-600 p-8">
+      <h1 className="text-5xl font-black mb-3 tracking-tight">{data.personalInfo.fullName || 'YOUR NAME'}</h1>
+      <div className="flex flex-wrap gap-3 text-sm font-semibold">
+        {data.personalInfo.email && <span className="bg-white/20 px-3 py-1 rounded">{data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span className="bg-white/20 px-3 py-1 rounded">{data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span className="bg-white/20 px-3 py-1 rounded">{data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-slate-800 rounded-lg p-5 border-l-4 border-yellow-500">
+          <h2 className="text-2xl font-bold text-yellow-400 mb-3">ABOUT</h2>
+          <p className="text-gray-300 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div className="bg-slate-800 rounded-lg p-5">
+          <h2 className="text-2xl font-bold text-yellow-400 mb-4">EXPERIENCE</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 pb-5 border-b border-slate-700 last:border-0">
+              <h3 className="font-bold text-xl text-white">{exp.position}</h3>
+              <p className="text-red-400 font-bold text-lg">{exp.company}</p>
+              <p className="text-sm text-gray-400 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-300 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <ul className="list-none space-y-1 text-gray-300">
+                  {exp.achievements.map((achievement, i) => (
+                    <li key={i} className="flex gap-2">
+                      <span className="text-yellow-400">▶</span>
+                      {achievement}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.skills.length > 0 && (
+          <div className="bg-slate-800 rounded-lg p-5">
+            <h2 className="text-2xl font-bold text-yellow-400 mb-3">SKILLS</h2>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.map((skill, idx) => (
+                <span key={skill.id} className={`px-3 py-1 rounded font-bold text-sm ${
+                  idx % 3 === 0 ? 'bg-red-600' : idx % 3 === 1 ? 'bg-yellow-600' : 'bg-blue-600'
+                }`}>
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        {data.education.length > 0 && (
+          <div className="bg-slate-800 rounded-lg p-5">
+            <h2 className="text-2xl font-bold text-yellow-400 mb-3">EDUCATION</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-bold text-white">{edu.degree}</h3>
+                <p className="text-red-400 font-semibold">{edu.institution}</p>
+                <p className="text-sm text-gray-400">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Startup Template - Bright modern
+export const StartupTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-white text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 text-white p-8">
+      <h1 className="text-5xl font-extrabold mb-3">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-3 text-sm">
+        {data.personalInfo.email && <span className="bg-white/30 backdrop-blur-sm px-3 py-1 rounded-full">{data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span className="bg-white/30 backdrop-blur-sm px-3 py-1 rounded-full">{data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span className="bg-white/30 backdrop-blur-sm px-3 py-1 rounded-full">{data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-6 border-2 border-indigo-200">
+          <h2 className="text-2xl font-bold text-indigo-700 mb-3">🚀 About Me</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div>
+          <h2 className="text-2xl font-bold text-indigo-700 mb-4 flex items-center gap-2">
+            💼 Experience
+          </h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-5 border-l-4 border-indigo-500">
+              <h3 className="font-bold text-lg text-gray-900">{exp.position}</h3>
+              <p className="text-indigo-600 font-bold">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700">{exp.description}</p>
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.skills.length > 0 && (
+          <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border-2 border-indigo-200">
+            <h2 className="text-2xl font-bold text-indigo-700 mb-3">⚡ Skills</h2>
+            <div className="flex flex-wrap gap-2">
+              {data.skills.map((skill) => (
+                <span key={skill.id} className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+        {data.education.length > 0 && (
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border-2 border-purple-200">
+            <h2 className="text-2xl font-bold text-purple-700 mb-3">🎓 Education</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3">
+                <h3 className="font-bold text-gray-900">{edu.degree}</h3>
+                <p className="text-purple-600 font-semibold">{edu.institution}</p>
+                <p className="text-sm text-gray-600">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
+// Data Science Template - Purple/Blue
+export const DataScienceTemplate: React.FC<TemplateProps> = ({ data, className = '' }) => (
+  <div className={`bg-slate-50 text-gray-900 ${className}`}>
+    <div className="bg-gradient-to-r from-violet-700 via-indigo-700 to-blue-700 text-white p-8">
+      <h1 className="text-4xl font-bold mb-2 font-mono">{data.personalInfo.fullName || 'Your Name'}</h1>
+      <div className="flex flex-wrap gap-3 text-sm font-mono">
+        {data.personalInfo.email && <span>📧 {data.personalInfo.email}</span>}
+        {data.personalInfo.phone && <span>📱 {data.personalInfo.phone}</span>}
+        {data.personalInfo.location && <span>📍 {data.personalInfo.location}</span>}
+      </div>
+    </div>
+    <div className="p-8 space-y-6">
+      {data.personalInfo.summary && (
+        <div className="bg-white rounded-lg p-5 shadow-md border-t-4 border-violet-600">
+          <h2 className="text-xl font-bold text-violet-800 mb-3 font-mono">&gt; PROFILE</h2>
+          <p className="text-gray-700 leading-relaxed">{data.personalInfo.summary}</p>
+        </div>
+      )}
+      {data.experience.length > 0 && (
+        <div className="bg-white rounded-lg p-5 shadow-md">
+          <h2 className="text-xl font-bold text-violet-800 mb-4 font-mono">&gt; EXPERIENCE</h2>
+          {data.experience.map((exp) => (
+            <div key={exp.id} className="mb-5 pb-5 border-b border-violet-200 last:border-0">
+              <h3 className="font-bold text-lg text-gray-900">{exp.position}</h3>
+              <p className="text-violet-700 font-semibold">{exp.company}</p>
+              <p className="text-sm text-gray-600 mb-2 font-mono">{exp.startDate} - {exp.current ? 'Present' : exp.endDate}</p>
+              <p className="text-gray-700 mb-2">{exp.description}</p>
+              {exp.achievements.length > 0 && (
+                <div className="bg-violet-50 p-3 rounded mt-2">
+                  {exp.achievements.map((achievement, i) => (
+                    <div key={i} className="flex gap-2 text-gray-700 mb-1">
+                      <span className="text-violet-600 font-mono">[+]</span>
+                      <span>{achievement}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="grid grid-cols-2 gap-6">
+        {data.skills.length > 0 && (
+          <div className="bg-white rounded-lg p-5 shadow-md border-t-4 border-indigo-600">
+            <h2 className="text-xl font-bold text-indigo-800 mb-3 font-mono">&gt; SKILLS</h2>
+            {['Technical', 'Soft', 'Language', 'Other'].map((category) => {
+              const categorySkills = data.skills.filter(skill => skill.category === category);
+              if (categorySkills.length === 0) return null;
+              return (
+                <div key={category} className="mb-3">
+                  <h3 className="font-semibold text-sm text-indigo-700 mb-1 font-mono">{category.toUpperCase()}</h3>
+                  <div className="flex flex-wrap gap-1">
+                    {categorySkills.map((skill) => (
+                      <span key={skill.id} className="bg-indigo-100 text-indigo-800 px-2 py-1 rounded text-xs font-mono">
+                        {skill.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        {data.education.length > 0 && (
+          <div className="bg-white rounded-lg p-5 shadow-md border-t-4 border-blue-600">
+            <h2 className="text-xl font-bold text-blue-800 mb-3 font-mono">&gt; EDUCATION</h2>
+            {data.education.map((edu) => (
+              <div key={edu.id} className="mb-3 bg-blue-50 p-3 rounded">
+                <h3 className="font-semibold text-gray-900">{edu.degree}</h3>
+                <p className="text-blue-700">{edu.institution}</p>
+                <p className="text-sm text-gray-600 font-mono">{edu.startDate} - {edu.endDate}</p>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+);
+
 export const resumeTemplates = {
   modern: { name: 'Modern', component: ModernTemplate, description: 'Clean and professional for tech roles' },
   classic: { name: 'Classic', component: ClassicTemplate, description: 'Traditional format for conservative industries' },
@@ -1224,4 +2088,16 @@ export const resumeTemplates = {
   healthcare: { name: 'Healthcare', component: HealthcareTemplate, description: 'Professional template for medical professionals' },
   contemporary: { name: 'Contemporary', component: TechTemplate, description: 'Modern design with fresh styling elements' },
   academic: { name: 'Academic', component: AcademicTemplate, description: 'Scholarly format for academic and research positions' },
+  sales: { name: 'Sales', component: SalesTemplate, description: 'Dynamic orange design for sales and marketing professionals' },
+  finance: { name: 'Finance', component: FinanceTemplate, description: 'Professional teal design for finance and banking roles' },
+  engineering: { name: 'Engineering', component: EngineeringTemplate, description: 'Technical slate design for engineering professionals' },
+  design: { name: 'Design Portfolio', component: DesignTemplate, description: 'Vibrant multi-color template for designers and creatives' },
+  consulting: { name: 'Consulting', component: ConsultingTemplate, description: 'Professional gray/blue template for consultants' },
+  education: { name: 'Education', component: EducationTemplate, description: 'Warm template for educators and trainers' },
+  nonprofit: { name: 'Nonprofit', component: NonprofitTemplate, description: 'Earth-tone template for nonprofit sector' },
+  realestate: { name: 'Real Estate', component: RealEstateTemplate, description: 'Luxurious gold template for real estate professionals' },
+  hospitality: { name: 'Hospitality', component: HospitalityTemplate, description: 'Elegant burgundy template for hospitality industry' },
+  media: { name: 'Media', component: MediaTemplate, description: 'Bold colorful template for media and entertainment' },
+  startup: { name: 'Startup', component: StartupTemplate, description: 'Modern gradient template for startup environments' },
+  datascience: { name: 'Data Science', component: DataScienceTemplate, description: 'Tech-focused template for data scientists and analysts' },
 };

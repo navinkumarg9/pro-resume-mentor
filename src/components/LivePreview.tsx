@@ -183,7 +183,7 @@ const LivePreview: React.FC = () => {
         {/* Resume Preview Container */}
         <div className="border border-border rounded-lg overflow-hidden bg-white shadow-lg">
           <div 
-            className="overflow-auto"
+            className="overflow-auto flex justify-center"
             style={{ 
               height: isFullscreen ? 'calc(100vh - 10rem)' : '800px',
               backgroundColor: '#f8f9fa'
@@ -194,7 +194,7 @@ const LivePreview: React.FC = () => {
               style={{ 
                 width: '794px', // A4 width at ~96 DPI
                 transform: `scale(${zoom / 100})`,
-                transformOrigin: 'top left'
+                transformOrigin: 'top center'
               }}
             >
               <div ref={previewRef} className="p-6">
