@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,9 +20,11 @@ import {
   MapPin,
   Globe,
   Github,
-  Linkedin
+  Linkedin,
+  Sparkles
 } from 'lucide-react';
 import { useResume, Experience, Education, Skill, Project } from './ResumeStore';
+import { ExamplesDialog } from './ExamplesDialog';
 
 interface SectionEditorProps {
   section: 'personal' | 'experience' | 'education' | 'skills' | 'projects';
@@ -30,6 +32,7 @@ interface SectionEditorProps {
 
 export const SectionEditor: React.FC<SectionEditorProps> = ({ section }) => {
   const { state, dispatch } = useResume();
+  const [examplesOpen, setExamplesOpen] = useState(false);
   
   const addExperience = () => {
     const newExperience: Experience = {
@@ -202,7 +205,19 @@ export const SectionEditor: React.FC<SectionEditorProps> = ({ section }) => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="summary">Professional Summary</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="summary">Professional Summary</Label>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setExamplesOpen(true)}
+            className="gap-2"
+          >
+            <Sparkles className="h-4 w-4" />
+            See Examples
+          </Button>
+        </div>
         <Textarea
           id="summary"
           rows={4}
@@ -217,6 +232,8 @@ export const SectionEditor: React.FC<SectionEditorProps> = ({ section }) => {
           {state.resumeData.personalInfo.summary.length}/300 characters recommended
         </p>
       </div>
+      
+      <ExamplesDialog open={examplesOpen} onOpenChange={setExamplesOpen} />
     </div>
   );
 
