@@ -107,7 +107,7 @@ const LivePreview: React.FC = () => {
 
   return (
     <Card className={`${isFullscreen ? 'fixed inset-0 z-50 m-0 rounded-none' : ''}`}>
-      <CardContent className={`${isFullscreen ? 'h-[calc(100vh-5rem)] overflow-auto' : 'pt-6'}`}>
+      <CardContent className={`${isFullscreen ? 'h-screen overflow-hidden flex flex-col' : 'pt-6'}`}>
         {/* Header Controls */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -181,28 +181,26 @@ const LivePreview: React.FC = () => {
         </div>
 
         {/* Resume Preview Container */}
-        <div className="border border-border rounded-lg overflow-hidden bg-white shadow-lg">
+        <div className={`border border-border rounded-lg overflow-auto bg-white shadow-lg flex justify-center ${isFullscreen ? 'flex-1' : ''}`}
+          style={{ 
+            height: isFullscreen ? 'auto' : '800px',
+            backgroundColor: '#f8f9fa'
+          }}
+        >
           <div 
-            className="overflow-auto flex justify-center"
+            className="bg-white"
             style={{ 
-              height: isFullscreen ? 'calc(100vh - 10rem)' : '800px',
-              backgroundColor: '#f8f9fa'
+              width: '794px', // A4 width at ~96 DPI
+              transform: `scale(${zoom / 100})`,
+              transformOrigin: 'top center',
+              minHeight: 'fit-content'
             }}
           >
-            <div 
-              className="bg-white"
-              style={{ 
-                width: '794px', // A4 width at ~96 DPI
-                transform: `scale(${zoom / 100})`,
-                transformOrigin: 'top center'
-              }}
-            >
-              <div ref={previewRef} className="p-6">
-                <TemplateComponent 
-                  data={state.resumeData} 
-                  className="h-full"
-                />
-              </div>
+            <div ref={previewRef} className="p-6">
+              <TemplateComponent 
+                data={state.resumeData} 
+                className="h-full"
+              />
             </div>
           </div>
         </div>
