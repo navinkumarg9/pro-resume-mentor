@@ -81,44 +81,44 @@ const ResumeAnalyzer: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       {/* Main Score Card */}
       <Card className="card-gradient border-primary/20">
-        <CardHeader className="text-center pb-4">
-          <CardTitle className="flex items-center justify-center gap-2 text-2xl">
-            <Award className="h-6 w-6 text-primary" />
-            Resume Analysis Score
+        <CardHeader className="text-center pb-2 pt-4">
+          <CardTitle className="flex items-center justify-center gap-2 text-lg">
+            <Award className="h-5 w-5 text-primary" />
+            Resume Score
           </CardTitle>
         </CardHeader>
-        <CardContent className="text-center space-y-6">
+        <CardContent className="text-center space-y-3 pb-4">
           {isLoading ? (
             <div className="flex items-center justify-center space-x-2">
-              <RefreshCw className="h-5 w-5 animate-spin text-primary" />
-              <span className="text-muted-foreground">Analyzing your resume...</span>
+              <RefreshCw className="h-4 w-4 animate-spin text-primary" />
+              <span className="text-sm text-muted-foreground">Analyzing...</span>
             </div>
           ) : (
             <>
-              <div className="space-y-4">
-                <div className={`text-6xl font-bold ${getScoreColor(analysisScore)}`}>
+              <div className="space-y-2">
+                <div className={`text-4xl font-bold ${getScoreColor(analysisScore)}`}>
                   {analysisScore}
-                  <span className="text-2xl text-muted-foreground">/100</span>
+                  <span className="text-xl text-muted-foreground">/100</span>
                 </div>
                 <Badge 
                   variant={getScoreBadgeVariant(analysisScore)}
-                  className="text-lg px-4 py-2"
+                  className="text-sm px-3 py-1"
                 >
                   {getScoreLabel(analysisScore)}
                 </Badge>
-                <Progress value={analysisScore} className="w-full h-3" />
+                <Progress value={analysisScore} className="w-full h-2" />
               </div>
               
               <Button 
                 onClick={analyzeResume}
                 variant="outline"
                 size="sm"
-                className="btn-outline-pro"
+                className="btn-outline-pro h-8 text-xs"
               >
-                <RefreshCw className="h-4 w-4 mr-2" />
+                <RefreshCw className="h-3 w-3 mr-1" />
                 Re-analyze
               </Button>
             </>
@@ -128,24 +128,24 @@ const ResumeAnalyzer: React.FC = () => {
 
       {/* Completion Checklist */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <CheckCircle2 className="h-5 w-5 text-primary" />
-            Resume Completeness
+        <CardHeader className="pb-2 pt-4">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <CheckCircle2 className="h-4 w-4 text-primary" />
+            Completeness
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-3">
+        <CardContent className="pb-3">
+          <div className="space-y-2">
             {completionChecks.map((check, index) => (
-              <div key={index} className="flex items-center space-x-3">
-                <div className={`rounded-full p-1 ${
+              <div key={index} className="flex items-center space-x-2">
+                <div className={`rounded-full p-0.5 ${
                   check.completed 
                     ? 'bg-success/20 text-success' 
                     : 'bg-muted text-muted-foreground'
                 }`}>
-                  <check.icon className="h-4 w-4" />
+                  <check.icon className="h-3 w-3" />
                 </div>
-                <span className={`flex-1 ${
+                <span className={`flex-1 text-sm ${
                   check.completed 
                     ? 'text-foreground' 
                     : 'text-muted-foreground'
@@ -153,9 +153,9 @@ const ResumeAnalyzer: React.FC = () => {
                   {check.label}
                 </span>
                 {check.completed ? (
-                  <CheckCircle2 className="h-4 w-4 text-success" />
+                  <CheckCircle2 className="h-3 w-3 text-success" />
                 ) : (
-                  <AlertCircle className="h-4 w-4 text-muted-foreground" />
+                  <AlertCircle className="h-3 w-3 text-muted-foreground" />
                 )}
               </div>
             ))}
@@ -166,18 +166,18 @@ const ResumeAnalyzer: React.FC = () => {
       {/* Suggestions */}
       {suggestions.length > 0 && (
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Lightbulb className="h-5 w-5 text-accent" />
-              Improvement Suggestions
+          <CardHeader className="pb-2 pt-4">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Lightbulb className="h-4 w-4 text-accent" />
+              Suggestions
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
+          <CardContent className="pb-3">
+            <div className="space-y-2">
               {suggestions.map((suggestion, index) => (
-                <div key={index} className="flex items-start space-x-3 p-3 bg-accent/10 rounded-lg">
-                  <AlertCircle className="h-4 w-4 text-accent mt-0.5 flex-shrink-0" />
-                  <p className="text-sm text-foreground">{suggestion}</p>
+                <div key={index} className="flex items-start space-x-2 p-2 bg-accent/10 rounded-md">
+                  <AlertCircle className="h-3 w-3 text-accent mt-0.5 flex-shrink-0" />
+                  <p className="text-xs text-foreground">{suggestion}</p>
                 </div>
               ))}
             </div>
@@ -187,44 +187,42 @@ const ResumeAnalyzer: React.FC = () => {
 
       {/* Score Breakdown */}
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <TrendingUp className="h-5 w-5 text-primary" />
-            Score Breakdown
+        <CardHeader className="pb-2 pt-4">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <TrendingUp className="h-4 w-4 text-primary" />
+            Breakdown
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="space-y-2">
-                <h4 className="font-semibold text-foreground">Scoring Criteria:</h4>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>• Personal Info: 30 points</li>
-                  <li>• Work Experience: 40 points</li>
-                  <li>• Education: 15 points</li>
-                  <li>• Skills: 15 points</li>
+        <CardContent className="pb-3">
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div className="space-y-1">
+                <h4 className="font-semibold text-foreground text-sm">Criteria:</h4>
+                <ul className="space-y-0.5 text-muted-foreground">
+                  <li>• Personal: 30 pts</li>
+                  <li>• Experience: 40 pts</li>
+                  <li>• Education: 15 pts</li>
+                  <li>• Skills: 15 pts</li>
                 </ul>
               </div>
-              <div className="space-y-2">
-                <h4 className="font-semibold text-foreground">Bonus Points:</h4>
-                <ul className="space-y-1 text-muted-foreground">
-                  <li>• Projects: +5 points</li>
-                  <li>• LinkedIn: +2 points</li>
-                  <li>• GitHub: +2 points</li>
-                  <li>• Website: +1 point</li>
+              <div className="space-y-1">
+                <h4 className="font-semibold text-foreground text-sm">Bonus:</h4>
+                <ul className="space-y-0.5 text-muted-foreground">
+                  <li>• Projects: +5</li>
+                  <li>• LinkedIn: +2</li>
+                  <li>• GitHub: +2</li>
+                  <li>• Website: +1</li>
                 </ul>
               </div>
             </div>
             
-            <div className="pt-4 border-t">
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">
-                  {analysisScore >= 80 ? 'Your resume is ready for applications!' :
-                   analysisScore >= 60 ? 'Good foundation, minor improvements needed.' :
-                   analysisScore >= 40 ? 'Several areas need attention.' :
-                   'Significant improvements required before applying.'}
-                </span>
-              </div>
+            <div className="pt-2 border-t">
+              <p className="text-xs text-muted-foreground">
+                {analysisScore >= 80 ? 'Ready for applications!' :
+                 analysisScore >= 60 ? 'Good, minor improvements needed.' :
+                 analysisScore >= 40 ? 'Several areas need attention.' :
+                 'Improvements required before applying.'}
+              </p>
             </div>
           </div>
         </CardContent>

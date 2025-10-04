@@ -511,6 +511,9 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
     if (personalInfo.github) score += 2;
     if (personalInfo.website) score += 1;
     
+    // Cap score at 100
+    score = Math.min(score, 100);
+    
     dispatch({ type: 'SET_ANALYSIS_SCORE', payload: score });
     dispatch({ type: 'SET_SUGGESTIONS', payload: suggestions });
     dispatch({ type: 'SET_LOADING', payload: false });
