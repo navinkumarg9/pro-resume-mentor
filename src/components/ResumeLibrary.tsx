@@ -167,15 +167,85 @@ export const ResumeLibrary: React.FC<ResumeLibraryProps> = ({ open, onOpenChange
     });
   };
 
-  const handleDownloadResume = (resume: SavedResume) => {
-    // Load the resume temporarily and trigger download
-    const downloadEvent = new CustomEvent('downloadResume');
-    window.dispatchEvent(downloadEvent);
-    
-    toast({
-      title: 'Downloading',
-      description: `Downloading ${resume.name}...`,
-    });
+  const handleDownloadResume = async (resume: SavedResume) => {
+    try {
+      // Import required libraries
+      const html2canvas = (await import('html2canvas')).default;
+      const jsPDF = (await import('jspdf')).default;
+      
+      // Create a temporary container
+      const tempContainer = document.createElement('div');
+      tempContainer.style.position = 'absolute';
+      tempContainer.style.left = '-9999px';
+      tempContainer.style.width = '794px';
+      tempContainer.style.padding = '24px';
+      tempContainer.style.backgroundColor = '#ffffff';
+      document.body.appendChild(tempContainer);
+      
+      // Import the template component
+      const { resumeTemplates } = await import('./ResumeTemplates');
+      const templateId = resume.data.templateId as keyof typeof resumeTemplates;
+      const currentTemplate = resumeTemplates[templateId];
+      const TemplateComponent = currentTemplate.component;
+      
+      // Render the resume using React
+      const { createRoot } = await import('react-dom/client');
+      const root = createRoot(tempContainer);
+      
+      // Render and wait for it to be painted
+      await new Promise<void>((resolve) => {
+        root.render(<TemplateComponent data={resume.data} className="h-full" />);
+        setTimeout(resolve, 100);
+      });
+      
+      // Generate PDF
+      const canvas = await html2canvas(tempContainer, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: '#ffffff',
+      });
+      
+      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      
+      const imgData = canvas.toDataURL('image/png');
+      const imgWidth = pageWidth;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      
+      let heightLeft = imgHeight;
+      let position = 0;
+      
+      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+      
+      while (heightLeft > 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+      
+      // Clean up
+      root.unmount();
+      document.body.removeChild(tempContainer);
+      
+      // Download the PDF
+      const fileName = `${resume.name}.pdf`;
+      pdf.save(fileName);
+      
+      toast({
+        title: 'Success',
+        description: `${resume.name} downloaded successfully`,
+      });
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to download resume. Please try again.',
+        variant: 'destructive',
+      });
+    }
   };
 
   const formatDate = (dateString: string) => {

@@ -70,6 +70,34 @@ const LivePreview: React.FC = () => {
         // Download the PDF
         const fileName = `${state.resumeData.personalInfo.fullName || 'Resume'}.pdf`;
         pdf.save(fileName);
+        
+        // Auto-save to library after download
+        const resumeName = state.resumeData.personalInfo.fullName || 'My Resume';
+        const stored = localStorage.getItem('savedResumes');
+        const resumes = stored ? JSON.parse(stored) : [];
+        
+        // Check if resume with same name exists
+        const existingIndex = resumes.findIndex((r: any) => r.name === resumeName);
+        
+        if (existingIndex >= 0) {
+          // Update existing resume
+          resumes[existingIndex] = {
+            ...resumes[existingIndex],
+            updatedAt: new Date().toISOString(),
+            data: state.resumeData,
+          };
+        } else {
+          // Add new resume
+          resumes.push({
+            id: Date.now().toString(),
+            name: resumeName,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+            data: state.resumeData,
+          });
+        }
+        
+        localStorage.setItem('savedResumes', JSON.stringify(resumes));
       } catch (error) {
         console.error('Error generating PDF:', error);
         alert('Error generating PDF. Please try again.');

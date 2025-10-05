@@ -69,10 +69,6 @@ const Editor: React.FC = () => {
                 <Layout className="mr-2 h-4 w-4" />
                 Change Template
               </Button>
-              <Button variant="outline" onClick={handleDownload}>
-                <Download className="mr-2 h-4 w-4" />
-                Download PDF
-              </Button>
             </div>
           </div>
         </div>
