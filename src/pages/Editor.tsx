@@ -30,17 +30,14 @@ import { useResume } from '@/components/ResumeStore';
 import { AdditionalSections } from '@/components/AdditionalSections';
 import { SectionEditor } from '@/components/SectionEditor';
 import ChatBot from '@/components/ChatBot';
+import { ResumeLibrary } from '@/components/ResumeLibrary';
 
 const Editor: React.FC = () => {
   const [analysisOpen, setAnalysisOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('personal');
   const [templateModalOpen, setTemplateModalOpen] = useState(false);
+  const [libraryOpen, setLibraryOpen] = useState(false);
   const { state } = useResume();
-
-  const handleSave = () => {
-    // Save resume data
-    localStorage.setItem('resumeData', JSON.stringify(state.resumeData));
-  };
 
   const handleDownload = () => {
     // Trigger download from LivePreview component
@@ -60,9 +57,9 @@ const Editor: React.FC = () => {
               </h1>
             </div>
             <div className="flex items-center space-x-3">
-              <Button variant="outline" onClick={handleSave}>
-                <Save className="mr-2 h-4 w-4" />
-                Save
+              <Button variant="default" onClick={() => setLibraryOpen(true)} className="btn-professional">
+                <Eye className="mr-2 h-4 w-4" />
+                My Resumes
               </Button>
               <Button 
                 variant="outline" 
@@ -72,7 +69,7 @@ const Editor: React.FC = () => {
                 <Layout className="mr-2 h-4 w-4" />
                 Change Template
               </Button>
-              <Button className="btn-professional" onClick={handleDownload}>
+              <Button variant="outline" onClick={handleDownload}>
                 <Download className="mr-2 h-4 w-4" />
                 Download PDF
               </Button>
@@ -216,6 +213,12 @@ const Editor: React.FC = () => {
       <TemplateModal 
         open={templateModalOpen} 
         onOpenChange={setTemplateModalOpen} 
+      />
+      
+      {/* Resume Library */}
+      <ResumeLibrary 
+        open={libraryOpen} 
+        onOpenChange={setLibraryOpen} 
       />
       
       {/* ChatBot */}
