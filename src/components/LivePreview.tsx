@@ -233,20 +233,6 @@ const LivePreview: React.FC = () => {
           </div>
         </div>
 
-        {/* Empty State */}
-        {!state.resumeData.personalInfo.fullName && (
-          <div className="absolute inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm">
-            <div className="text-center space-y-4">
-              <FileText className="h-16 w-16 text-muted-foreground mx-auto" />
-              <div className="space-y-2">
-                <h3 className="text-lg font-semibold">Start Building Your Resume</h3>
-                <p className="text-muted-foreground">
-                  Add your personal information to see a live preview of your resume.
-                </p>
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Preview Tips */}
         {!isFullscreen && (

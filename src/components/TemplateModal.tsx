@@ -86,12 +86,12 @@ const TemplateModal: React.FC<TemplateModalProps> = ({ open, onOpenChange }) => 
 
                 {templateId === 'professional' && (
                   <div className="space-y-2">
-                    <div className="bg-navy-600 h-4 rounded w-full"></div>
+                    <div className="bg-slate-800 h-4 rounded w-full"></div>
                     <div className="bg-gray-200 h-2 rounded w-3/4"></div>
                     <div className="grid grid-cols-3 gap-1 mt-3">
-                      <div className="bg-gray-100 h-4 rounded"></div>
-                      <div className="bg-gray-100 h-4 rounded"></div>
-                      <div className="bg-gray-100 h-4 rounded"></div>
+                      <div className="bg-slate-200 h-4 rounded"></div>
+                      <div className="bg-slate-200 h-4 rounded"></div>
+                      <div className="bg-slate-200 h-4 rounded"></div>
                     </div>
                     <div className="space-y-1 mt-3">
                       <div className="bg-gray-200 h-1 rounded w-full"></div>
@@ -346,6 +346,41 @@ const TemplateModal: React.FC<TemplateModalProps> = ({ open, onOpenChange }) => 
                       <div className="bg-blue-200 h-4 rounded"></div>
                     </div>
                     <div className="bg-cyan-100 h-2 rounded w-full mt-2"></div>
+                  </div>
+                )}
+
+                {templateId === 'corporate' && (
+                  <div className="space-y-2">
+                    <div className="bg-gray-700 h-4 rounded w-2/3"></div>
+                    <div className="bg-gray-200 h-2 rounded w-3/4"></div>
+                    <div className="bg-gray-400 h-px w-full mt-3"></div>
+                    <div className="space-y-1 mt-2">
+                      <div className="bg-gray-700 h-2 rounded w-full"></div>
+                      <div className="bg-gray-200 h-1 rounded w-4/5"></div>
+                    </div>
+                  </div>
+                )}
+
+                {templateId === 'legal' && (
+                  <div className="space-y-2">
+                    <div className="bg-slate-900 h-3 rounded w-1/2 mx-auto"></div>
+                    <div className="bg-gray-800 h-px w-full"></div>
+                    <div className="bg-gray-200 h-2 rounded w-3/4 mx-auto"></div>
+                    <div className="space-y-1 mt-3">
+                      <div className="bg-slate-900 h-2 rounded w-full"></div>
+                      <div className="bg-gray-200 h-1 rounded w-full"></div>
+                    </div>
+                  </div>
+                )}
+
+                {templateId === 'healthcare' && (
+                  <div className="space-y-2">
+                    <div className="bg-gradient-to-r from-cyan-600 to-teal-600 h-5 rounded w-full"></div>
+                    <div className="bg-gray-200 h-2 rounded w-3/4"></div>
+                    <div className="grid grid-cols-2 gap-1 mt-3">
+                      <div className="bg-cyan-100 h-6 rounded"></div>
+                      <div className="bg-teal-100 h-6 rounded"></div>
+                    </div>
                   </div>
                 )}
 
