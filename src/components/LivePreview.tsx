@@ -134,10 +134,10 @@ const LivePreview: React.FC = () => {
   };
 
   return (
-    <Card className={`${isFullscreen ? 'fixed inset-0 z-50 m-0 rounded-none' : ''}`}>
-      <CardContent className={`${isFullscreen ? 'h-screen overflow-hidden flex flex-col' : 'pt-6'}`}>
+    <div className={`${isFullscreen ? 'fixed inset-0 z-50 m-0' : ''}`}>
+      <div className={`${isFullscreen ? 'h-screen overflow-hidden flex flex-col bg-background' : ''}`}>
         {/* Header Controls */}
-        <div className="flex items-center justify-between mb-4">
+        <div className={`flex items-center justify-between mb-4 ${isFullscreen ? 'p-4 border-b' : ''}`}>
           <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
             <h2 className="text-lg font-semibold">Resume Preview</h2>
@@ -148,13 +148,13 @@ const LivePreview: React.FC = () => {
             onClick={toggleFullscreen}
             className="flex items-center gap-2"
           >
-            <Eye className="h-4 w-4" />
-            Full Preview
+            {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
+            {isFullscreen ? 'Exit' : 'Fullscreen'}
           </Button>
         </div>
 
         {/* Floating Controls */}
-        <div className="flex items-center justify-between mb-4">
+        <div className={`flex items-center justify-between mb-4 ${isFullscreen ? 'px-4' : ''}`}>
           <Badge variant="outline" className="px-3 py-1">
             {currentTemplate.name}
           </Badge>
@@ -208,23 +208,32 @@ const LivePreview: React.FC = () => {
           </div>
         </div>
 
-        {/* Resume Preview Container */}
-        <div className={`border border-border rounded-lg overflow-auto bg-white shadow-lg flex justify-center ${isFullscreen ? 'flex-1' : ''}`}
+        {/* Resume Preview Container - A4 Paper Simulation */}
+        <div className={`flex justify-center ${isFullscreen ? 'flex-1 overflow-auto py-8' : ''}`}
           style={{ 
-            height: isFullscreen ? 'auto' : '800px',
-            backgroundColor: '#f8f9fa'
+            backgroundColor: '#525252',
+            minHeight: isFullscreen ? 'auto' : '1200px'
           }}
         >
           <div 
-            className="bg-white"
+            className="relative"
             style={{ 
-              width: '794px', // A4 width at ~96 DPI
               transform: `scale(${zoom / 100})`,
               transformOrigin: 'top center',
-              minHeight: 'fit-content'
+              padding: '20px 0'
             }}
           >
-            <div ref={previewRef} className="p-6">
+            {/* A4 Page Container */}
+            <div 
+              ref={previewRef}
+              className="bg-white shadow-2xl mx-auto"
+              style={{ 
+                width: '210mm', // A4 width
+                minHeight: '297mm', // A4 height
+                padding: '20mm', // Standard margins
+                boxSizing: 'border-box'
+              }}
+            >
               <TemplateComponent 
                 data={state.resumeData} 
                 className="h-full"
@@ -233,24 +242,23 @@ const LivePreview: React.FC = () => {
           </div>
         </div>
 
-
         {/* Preview Tips */}
         {!isFullscreen && (
           <div className="mt-4 p-4 bg-muted/30 rounded-lg">
             <h4 className="font-medium mb-2 flex items-center gap-2">
-              <Eye className="h-4 w-4" />
+              <FileText className="h-4 w-4" />
               Preview Tips:
             </h4>
             <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• Changes are reflected in real-time as you edit</li>
+              <li>• This shows exactly how your PDF will look</li>
+              <li>• Content automatically flows to multiple pages</li>
               <li>• Use zoom controls to adjust the view</li>
-              <li>• Click fullscreen for a better editing experience</li>
-              <li>• Print or download PDF when you're ready</li>
+              <li>• Download PDF to see the final result</li>
             </ul>
           </div>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

@@ -21,7 +21,9 @@ import {
   Globe,
   Github,
   Linkedin,
-  Sparkles
+  Sparkles,
+  Upload,
+  X
 } from 'lucide-react';
 import { useResume, Experience, Education, Skill, Project } from './ResumeStore';
 import { ExamplesDialog } from './ExamplesDialog';
@@ -87,8 +89,69 @@ export const SectionEditor: React.FC<SectionEditorProps> = ({ section }) => {
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
   };
 
+  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        dispatch({
+          type: 'UPDATE_PERSONAL_INFO',
+          payload: { profilePhoto: reader.result as string }
+        });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    dispatch({
+      type: 'UPDATE_PERSONAL_INFO',
+      payload: { profilePhoto: undefined }
+    });
+  };
+
   const renderPersonalInfo = () => (
     <div className="space-y-6">
+      {/* Profile Photo Upload */}
+      <div className="space-y-2">
+        <Label>Profile Photo</Label>
+        <div className="flex items-start gap-4">
+          {state.resumeData.personalInfo.profilePhoto ? (
+            <div className="relative">
+              <img 
+                src={state.resumeData.personalInfo.profilePhoto} 
+                alt="Profile" 
+                className="w-32 h-32 object-cover rounded-lg border-2 border-border"
+              />
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={removePhoto}
+                className="absolute -top-2 -right-2 h-6 w-6 p-0 rounded-full"
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          ) : (
+            <label className="w-32 h-32 border-2 border-dashed border-border rounded-lg flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors">
+              <Upload className="h-8 w-8 text-muted-foreground mb-2" />
+              <span className="text-xs text-muted-foreground text-center px-2">Click to upload</span>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handlePhotoUpload}
+                className="hidden"
+              />
+            </label>
+          )}
+          <div className="flex-1">
+            <p className="text-sm text-muted-foreground">
+              Upload a professional headshot for your resume. Recommended size: 300x300px
+            </p>
+          </div>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="fullName">Full Name *</Label>

@@ -31,6 +31,7 @@ import { AdditionalSections } from '@/components/AdditionalSections';
 import { SectionEditor } from '@/components/SectionEditor';
 import ChatBot from '@/components/ChatBot';
 import { ResumeLibrary } from '@/components/ResumeLibrary';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const Editor: React.FC = () => {
   const [analysisOpen, setAnalysisOpen] = useState(false);
@@ -77,7 +78,8 @@ const Editor: React.FC = () => {
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-120px)]">
           {/* Left Column */}
-          <div className="space-y-4 overflow-y-auto">
+          <ScrollArea className="h-[calc(100vh-120px)]">
+            <div className="space-y-4 pr-4">
             {/* Resume Analysis */}
             <Collapsible open={analysisOpen} onOpenChange={setAnalysisOpen}>
               <CollapsibleTrigger asChild>
@@ -194,14 +196,13 @@ const Editor: React.FC = () => {
                 </Tabs>
               </CardContent>
             </Card>
-          </div>
+            </div>
+          </ScrollArea>
 
           {/* Right Column - Live Preview */}
-          <div className="bg-card rounded-lg border">
-            <div className="p-2">
-              <LivePreview />
-            </div>
-          </div>
+          <ScrollArea className="h-[calc(100vh-120px)]">
+            <LivePreview />
+          </ScrollArea>
         </div>
       </div>
       
