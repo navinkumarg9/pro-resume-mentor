@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,44 @@ const LivePreview: React.FC = () => {
   const { state } = useResume();
   const [isZoomed, setIsZoomed] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(0.68);
+
+  // Auto-fit the A4 page inside the preview box (no horizontal scrolling)
+  useEffect(() => {
+    const updateScale = () => {
+      const container = containerRef.current;
+      const page = previewRef.current;
+      if (!container || !page) return;
+
+      const prev = page.style.transform;
+      // Temporarily remove scaling to measure natural size
+      page.style.transform = 'none';
+      const pageWidth = page.offsetWidth;
+      const pageHeight = page.offsetHeight;
+      page.style.transform = prev;
+
+      const padding = 16; // internal margin inside preview box
+      const availableWidth = Math.max(container.clientWidth - padding * 2, 0);
+      const availableHeight = Math.max(container.clientHeight - padding * 2, 0);
+
+      if (pageWidth > 0 && pageHeight > 0) {
+        const nextScale = Math.min(availableWidth / pageWidth, availableHeight / pageHeight, 1);
+        if (!Number.isNaN(nextScale) && nextScale > 0) setScale(nextScale);
+      }
+    };
+
+    updateScale();
+
+    const ro = new ResizeObserver(() => updateScale());
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener('resize', updateScale);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', updateScale);
+    };
+  }, []);
 
   const currentTemplate = resumeTemplates[state.resumeData.templateId as keyof typeof resumeTemplates];
   const TemplateComponent = currentTemplate.component;
