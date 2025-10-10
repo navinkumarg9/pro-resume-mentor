@@ -164,10 +164,10 @@ const LivePreview: React.FC = () => {
 
         {/* Resume Preview Container - Fitted */}
         <div 
-          className="flex-1 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors p-4 overflow-hidden"
+          className="flex-1 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors overflow-auto"
           onClick={handleResumeClick}
         >
-          <div className="h-full flex items-center justify-center">
+          <div className="flex items-start justify-center p-3">
             <div 
               className="bg-white shadow-lg"
               style={{ 
@@ -175,9 +175,8 @@ const LivePreview: React.FC = () => {
                 minHeight: '297mm',
                 padding: '20mm',
                 boxSizing: 'border-box',
-                transform: 'scale(0.5)',
-                transformOrigin: 'center',
-                maxHeight: '100%'
+                transform: 'scale(0.68)',
+                transformOrigin: 'top center'
               }}
             >
               <div ref={previewRef} style={{ width: '100%', minHeight: '257mm' }}>
