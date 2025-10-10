@@ -5,12 +5,9 @@ import { Badge } from '@/components/ui/badge';
 import { 
   Eye, 
   Download, 
-  ZoomIn, 
-  ZoomOut, 
-  Maximize2, 
-  Minimize2,
   FileText,
-  Printer
+  Printer,
+  X
 } from 'lucide-react';
 import { useResume } from './ResumeStore';
 import { resumeTemplates } from './ResumeTemplates';
@@ -19,20 +16,11 @@ import jsPDF from 'jspdf';
 
 const LivePreview: React.FC = () => {
   const { state } = useResume();
-  const [zoom, setZoom] = useState(100);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
 
   const currentTemplate = resumeTemplates[state.resumeData.templateId as keyof typeof resumeTemplates];
   const TemplateComponent = currentTemplate.component;
-
-  const handleZoomIn = () => {
-    setZoom(prev => Math.min(prev + 25, 200));
-  };
-
-  const handleZoomOut = () => {
-    setZoom(prev => Math.max(prev - 25, 50));
-  };
 
   const handleDownloadPDF = async () => {
     if (previewRef.current) {
@@ -129,63 +117,29 @@ const LivePreview: React.FC = () => {
     }
   };
 
-  const toggleFullscreen = () => {
-    setIsFullscreen(!isFullscreen);
+  const handleResumeClick = () => {
+    setIsZoomed(true);
+  };
+
+  const handleCloseZoom = () => {
+    setIsZoomed(false);
   };
 
   return (
-    <div className={`${isFullscreen ? 'fixed inset-0 z-50 m-0' : ''}`}>
-      <div className={`${isFullscreen ? 'h-screen overflow-hidden flex flex-col bg-background' : ''}`}>
+    <>
+      <div className="flex flex-col h-full">
         {/* Header Controls */}
-        <div className={`flex items-center justify-between mb-4 ${isFullscreen ? 'p-4 border-b' : ''}`}>
+        <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
             <h2 className="text-lg font-semibold">Resume Preview</h2>
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={toggleFullscreen}
-            className="flex items-center gap-2"
-          >
-            {isFullscreen ? <Minimize2 className="h-4 w-4" /> : <Maximize2 className="h-4 w-4" />}
-            {isFullscreen ? 'Exit' : 'Fullscreen'}
-          </Button>
-        </div>
-
-        {/* Floating Controls */}
-        <div className={`flex items-center justify-between mb-4 ${isFullscreen ? 'px-4' : ''}`}>
-          <Badge variant="outline" className="px-3 py-1">
-            {currentTemplate.name}
-          </Badge>
           
           <div className="flex items-center gap-2">
-            {/* Zoom Controls */}
-            <div className="flex items-center gap-1 border rounded-lg p-1 bg-background">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleZoomOut}
-                disabled={zoom <= 50}
-                className="h-8 w-8 p-0"
-              >
-                <ZoomOut className="h-4 w-4" />
-              </Button>
-              <span className="text-sm font-medium px-2 min-w-[3rem] text-center">
-                {zoom}%
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleZoomIn}
-                disabled={zoom >= 200}
-                className="h-8 w-8 p-0"
-              >
-                <ZoomIn className="h-4 w-4" />
-              </Button>
-            </div>
-
-            {/* Action Buttons */}
+            <Badge variant="outline" className="px-3 py-1">
+              {currentTemplate.name}
+            </Badge>
+            
             <Button
               variant="outline"
               size="sm"
@@ -197,7 +151,7 @@ const LivePreview: React.FC = () => {
             </Button>
             
             <Button
-              variant="outline"
+              variant="default"
               size="sm"
               onClick={handleDownloadPDF}
               className="flex items-center gap-2"
@@ -208,30 +162,21 @@ const LivePreview: React.FC = () => {
           </div>
         </div>
 
-        {/* Resume Preview Container - A4 Paper Simulation */}
-        <div className={`flex justify-center ${isFullscreen ? 'flex-1 overflow-auto py-8' : ''}`}
-          style={{ 
-            backgroundColor: '#525252',
-            minHeight: isFullscreen ? 'auto' : '1200px'
-          }}
+        {/* Resume Preview Container - Fit to container */}
+        <div 
+          className="flex-1 overflow-auto bg-muted/30 rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors"
+          onClick={handleResumeClick}
         >
-          <div 
-            className="relative"
-            style={{ 
-              transform: `scale(${zoom / 100})`,
-              transformOrigin: 'top center',
-              padding: '20px 0'
-            }}
-          >
-            {/* A4 Page Container */}
+          <div className="flex justify-center">
             <div 
               ref={previewRef}
-              className="bg-white shadow-2xl mx-auto"
+              className="bg-white shadow-lg mx-auto"
               style={{ 
-                width: '210mm', // A4 width
-                minHeight: '297mm', // A4 height
-                padding: '20mm', // Standard margins
-                boxSizing: 'border-box'
+                width: '210mm',
+                minHeight: '297mm',
+                padding: '20mm',
+                boxSizing: 'border-box',
+                transformOrigin: 'top center'
               }}
             >
               <TemplateComponent 
@@ -243,22 +188,51 @@ const LivePreview: React.FC = () => {
         </div>
 
         {/* Preview Tips */}
-        {!isFullscreen && (
-          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
-            <h4 className="font-medium mb-2 flex items-center gap-2">
-              <FileText className="h-4 w-4" />
-              Preview Tips:
-            </h4>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>• This shows exactly how your PDF will look</li>
-              <li>• Content automatically flows to multiple pages</li>
-              <li>• Use zoom controls to adjust the view</li>
-              <li>• Download PDF to see the final result</li>
-            </ul>
-          </div>
-        )}
+        <div className="mt-4 p-3 bg-muted/30 rounded-lg">
+          <p className="text-sm text-muted-foreground flex items-center gap-2">
+            <FileText className="h-4 w-4" />
+            Click on the resume to view it larger
+          </p>
+        </div>
       </div>
-    </div>
+
+      {/* Zoomed View Modal */}
+      {isZoomed && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-8"
+          onClick={handleCloseZoom}
+        >
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute top-4 right-4 text-white hover:bg-white/20"
+            onClick={handleCloseZoom}
+          >
+            <X className="h-6 w-6" />
+          </Button>
+          
+          <div 
+            className="overflow-auto max-h-full max-w-full"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div 
+              className="bg-white shadow-2xl"
+              style={{ 
+                width: '210mm',
+                minHeight: '297mm',
+                padding: '20mm',
+                boxSizing: 'border-box'
+              }}
+            >
+              <TemplateComponent 
+                data={state.resumeData} 
+                className="h-full"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
