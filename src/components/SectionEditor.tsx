@@ -146,7 +146,7 @@ export const SectionEditor: React.FC<SectionEditorProps> = ({ section }) => {
           )}
           <div className="flex-1">
             <p className="text-sm text-muted-foreground">
-              Upload a professional headshot for your resume. Recommended size: 300x300px
+              Upload a professional headshot for your resume
             </p>
           </div>
         </div>
