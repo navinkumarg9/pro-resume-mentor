@@ -162,28 +162,31 @@ const LivePreview: React.FC = () => {
           </div>
         </div>
 
-        {/* Resume Preview Container - Scaled to fit */}
+        {/* Resume Preview Container - Fitted */}
         <div 
-          className="flex-1 overflow-auto bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors flex items-start justify-center p-2"
+          className="flex-1 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors p-4 overflow-hidden"
           onClick={handleResumeClick}
         >
-          <div 
-            ref={previewRef}
-            className="bg-white shadow-lg"
-            style={{ 
-              width: '210mm',
-              minHeight: '297mm',
-              padding: '20mm',
-              boxSizing: 'border-box',
-              transform: 'scale(0.45)',
-              transformOrigin: 'top center',
-              marginBottom: '-150mm'
-            }}
-          >
-            <TemplateComponent 
-              data={state.resumeData} 
-              className="h-full"
-            />
+          <div className="h-full flex items-center justify-center">
+            <div 
+              className="bg-white shadow-lg"
+              style={{ 
+                width: '210mm',
+                minHeight: '297mm',
+                padding: '20mm',
+                boxSizing: 'border-box',
+                transform: 'scale(0.5)',
+                transformOrigin: 'center',
+                maxHeight: '100%'
+              }}
+            >
+              <div ref={previewRef} style={{ width: '100%', minHeight: '257mm' }}>
+                <TemplateComponent 
+                  data={state.resumeData} 
+                  className="h-full"
+                />
+              </div>
+            </div>
           </div>
         </div>
 
