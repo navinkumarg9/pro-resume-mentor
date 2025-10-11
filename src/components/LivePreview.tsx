@@ -21,6 +21,7 @@ const LivePreview: React.FC = () => {
   const pageRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.68);
+  const [pageSize, setPageSize] = useState({ width: 0, height: 0 });
 
   // Auto-fit the A4 page inside the preview box (no horizontal scrolling)
   useEffect(() => {
@@ -41,7 +42,8 @@ const LivePreview: React.FC = () => {
       const availableHeight = Math.max(container.clientHeight - padding * 2, 0);
 
       if (pageWidth > 0 && pageHeight > 0) {
-        const nextScale = Math.min(availableWidth / pageWidth, 1) * 0.94;
+        setPageSize({ width: pageWidth, height: pageHeight });
+        const nextScale = Math.min(availableWidth / pageWidth, 1) * 0.92;
         if (!Number.isNaN(nextScale) && nextScale > 0) setScale(nextScale);
       }
     };
@@ -168,7 +170,7 @@ const LivePreview: React.FC = () => {
     <>
       <div className="flex flex-col h-full">
         {/* Header Controls */}
-        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+        <div className="flex items-center justify-between mb-1 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
             <h2 className="text-lg font-semibold">Resume Preview</h2>
@@ -208,23 +210,30 @@ const LivePreview: React.FC = () => {
           onClick={handleResumeClick}
         >
           <div className="flex items-start justify-start p-0 min-w-0">
-            <div 
-              ref={pageRef}
-              className="bg-white shadow-lg"
-              style={{ 
-                width: '210mm',
-                minHeight: '297mm',
-                padding: '20mm',
-                boxSizing: 'border-box',
-                transform: `scale(${scale})`,
-                transformOrigin: 'top center'
+            <div
+              className="min-w-0"
+              style={{
+                width: pageSize.width > 0 ? `${pageSize.width * scale}px` : '100%',
               }}
             >
-              <div ref={previewRef} style={{ width: '100%', minHeight: '257mm' }}>
-                <TemplateComponent 
-                  data={state.resumeData} 
-                  className="h-full"
-                />
+              <div 
+                ref={pageRef}
+                className="bg-white shadow-lg inline-block"
+                style={{ 
+                  width: '210mm',
+                  minHeight: '297mm',
+                  padding: '20mm',
+                  boxSizing: 'border-box',
+                  transform: `scale(${scale})`,
+                  transformOrigin: 'top left'
+                }}
+              >
+                <div ref={previewRef} style={{ width: '100%', minHeight: '257mm' }}>
+                  <TemplateComponent 
+                    data={state.resumeData} 
+                    className="h-full"
+                  />
+                </div>
               </div>
             </div>
           </div>
