@@ -18,6 +18,7 @@ const LivePreview: React.FC = () => {
   const { state } = useResume();
   const [isZoomed, setIsZoomed] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const pageRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(0.68);
 
@@ -25,7 +26,7 @@ const LivePreview: React.FC = () => {
   useEffect(() => {
     const updateScale = () => {
       const container = containerRef.current;
-      const page = previewRef.current;
+       const page = pageRef.current;
       if (!container || !page) return;
 
       const prev = page.style.transform;
@@ -35,12 +36,12 @@ const LivePreview: React.FC = () => {
       const pageHeight = page.offsetHeight;
       page.style.transform = prev;
 
-      const padding = 16; // internal margin inside preview box
+      const padding = 0; // internal margin inside preview box
       const availableWidth = Math.max(container.clientWidth - padding * 2, 0);
       const availableHeight = Math.max(container.clientHeight - padding * 2, 0);
 
       if (pageWidth > 0 && pageHeight > 0) {
-        const nextScale = Math.min(availableWidth / pageWidth, availableHeight / pageHeight, 1);
+        const nextScale = Math.min(availableWidth / pageWidth, 1);
         if (!Number.isNaN(nextScale) && nextScale > 0) setScale(nextScale);
       }
     };
@@ -202,18 +203,20 @@ const LivePreview: React.FC = () => {
 
         {/* Resume Preview Container - Fitted */}
         <div 
-          className="flex-1 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors overflow-auto"
+          ref={containerRef}
+          className="flex-1 bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors overflow-y-auto overflow-x-hidden"
           onClick={handleResumeClick}
         >
-          <div className="flex items-start justify-center p-3">
+          <div className="flex items-start justify-center p-0">
             <div 
+              ref={pageRef}
               className="bg-white shadow-lg"
               style={{ 
                 width: '210mm',
                 minHeight: '297mm',
                 padding: '20mm',
                 boxSizing: 'border-box',
-                transform: 'scale(0.68)',
+                transform: `scale(${scale})`,
                 transformOrigin: 'top center'
               }}
             >
