@@ -12,15 +12,25 @@ export const ModernTemplate: React.FC<TemplateProps> = ({ data, className = '' }
     <div className={`bg-white text-gray-900 font-inter ${className}`}>
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-8">
-        <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName || 'Your Name'}</h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-          <div>
-            {data.personalInfo.email && <p>📧 {data.personalInfo.email}</p>}
-            {data.personalInfo.phone && <p>📱 {data.personalInfo.phone}</p>}
-          </div>
-          <div>
-            {data.personalInfo.location && <p>📍 {data.personalInfo.location}</p>}
-            {data.personalInfo.website && <p>🌐 {data.personalInfo.website}</p>}
+        <div className="flex items-center gap-6">
+          <img
+            src={data.personalInfo.profilePhoto || '/placeholder.svg'}
+            alt={`${data.personalInfo.fullName || 'Profile'} photo`}
+            className="w-16 h-16 rounded-full object-cover ring-2 ring-white/50"
+            loading="lazy"
+          />
+          <div className="flex-1">
+            <h1 className="text-4xl font-bold mb-2">{data.personalInfo.fullName || 'Your Name'}</h1>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div>
+                {data.personalInfo.email && <p>📧 {data.personalInfo.email}</p>}
+                {data.personalInfo.phone && <p>📱 {data.personalInfo.phone}</p>}
+              </div>
+              <div>
+                {data.personalInfo.location && <p>📍 {data.personalInfo.location}</p>}
+                {data.personalInfo.website && <p>🌐 {data.personalInfo.website}</p>}
+              </div>
+            </div>
           </div>
         </div>
       </div>
