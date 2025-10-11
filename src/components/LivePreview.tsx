@@ -41,7 +41,7 @@ const LivePreview: React.FC = () => {
       const availableHeight = Math.max(container.clientHeight - padding * 2, 0);
 
       if (pageWidth > 0 && pageHeight > 0) {
-        const nextScale = Math.min(availableWidth / pageWidth, 1) * 0.98;
+        const nextScale = Math.min(availableWidth / pageWidth, 1) * 0.94;
         if (!Number.isNaN(nextScale) && nextScale > 0) setScale(nextScale);
       }
     };
@@ -168,13 +168,13 @@ const LivePreview: React.FC = () => {
     <>
       <div className="flex flex-col h-full">
         {/* Header Controls */}
-        <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
           <div className="flex items-center gap-2">
             <Eye className="h-5 w-5" />
             <h2 className="text-lg font-semibold">Resume Preview</h2>
           </div>
           
-          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 shrink-0 sm:w-auto w-full justify-end">
             <Badge variant="outline" className="px-3 py-1">
               {currentTemplate.name}
             </Badge>
@@ -204,10 +204,10 @@ const LivePreview: React.FC = () => {
         {/* Resume Preview Container - Fitted */}
         <div 
           ref={containerRef}
-          className="flex-1 w-full bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors overflow-y-auto overflow-x-hidden"
+          className="flex-1 w-full bg-muted/30 rounded-lg cursor-pointer hover:bg-muted/50 transition-colors overflow-y-auto overflow-x-hidden min-w-0"
           onClick={handleResumeClick}
         >
-          <div className="flex items-start justify-start p-0">
+          <div className="flex items-start justify-start p-0 min-w-0">
             <div 
               ref={pageRef}
               className="bg-white shadow-lg"
